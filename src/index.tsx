@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import reportWebVitals from './reportWebVitals'
+import './index.css'
 
 const App = () => <div>This is the app!</div>
 

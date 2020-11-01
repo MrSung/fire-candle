@@ -1,1 +1,16 @@
-@import-normalize
+@import-normalize;
+
+html {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: rgb(247, 249, 252);
+  margin: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}

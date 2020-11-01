@@ -2,9 +2,13 @@ import React from 'react'
 import styled from 'styled-components'
 import AddCircle from '@material-ui/icons/AddCircle'
 
-export const AddBlockButton = () => {
+interface IAddBlockButton {
+  onClick: () => void
+}
+
+export const AddBlockButton = ({ onClick }: IAddBlockButton) => {
   return (
-    <Wrapper type='button'>
+    <Wrapper type='button' onClick={onClick}>
       <AddCircle color='primary' style={{ fontSize: 40 }} />
     </Wrapper>
   )

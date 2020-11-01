@@ -25,7 +25,7 @@ export const InputBlock = () => {
   return (
     <Wrapper>
       {inputBlockItems.map(({ id, labelText }) => (
-        <InputSet key={id} id={id} labelText={labelText} />
+        <InputSet key={id} id={id} type='number' labelText={labelText} />
       ))}
     </Wrapper>
   )

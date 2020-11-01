@@ -4,15 +4,16 @@ import { Input, InputLabel } from '@material-ui/core'
 
 interface IInputSetProps {
   id: string
+  type: string
   labelText: string
 }
 
-export const InputSet = ({ id, labelText }: IInputSetProps) => {
+export const InputSet = ({ id, type, labelText }: IInputSetProps) => {
   return (
     <Wrapper>
       <StyledInputLabel>
         <LabelText>{labelText}</LabelText>
-        <Input id={id} />
+        <Input id={id} type={type} />
       </StyledInputLabel>
     </Wrapper>
   )

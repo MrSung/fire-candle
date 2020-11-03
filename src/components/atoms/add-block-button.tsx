@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import AddCircle from '@material-ui/icons/AddCircle'
 
 interface IAddBlockButton {
-  onClick: () => void
+  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void
 }
 
 export const AddBlockButton = ({ onClick }: IAddBlockButton) => {

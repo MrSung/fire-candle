@@ -6,8 +6,10 @@ export const LayoutInputChart: React.FC = ({ children }) => {
 }
 
 const Wrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 400px auto;
+  grid-template-rows: 1fr;
+  gap: 40px 40px;
   width: 1110px;
   margin: 0 auto;
   padding: 40px 0;

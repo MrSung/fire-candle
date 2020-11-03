@@ -47,7 +47,6 @@ const Wrapper = styled.div`
 `
 
 const InputBlockWrap = styled.div`
-  width: 400px;
   padding: 28px 28px 32px;
   border-radius: 4px;
   background-color: #fff;

@@ -8,23 +8,17 @@ export const ChartBlocks = () => {
   const charts = useSelector((state: RootState) => state.charts)
 
   return (
-    <Wrapper>
+    <>
       {charts.map(chart => (
         <ChartBlockWrap key={chart.id}>
           <ChartBlock />
         </ChartBlockWrap>
       ))}
-    </Wrapper>
+    </>
   )
 }
 
-const Wrapper = styled.div`
-  flex-grow: 1;
-`
-
 const ChartBlockWrap = styled.div`
-  height: 100%;
-  margin-left: 40px;
   padding: 28px 28px 40px;
   border-radius: 4px;
   background-color: #fff;

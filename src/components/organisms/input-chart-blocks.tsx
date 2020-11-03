@@ -19,7 +19,7 @@ export const InputChartBlocks = () => {
   return (
     <Wrapper>
       {charts.map(chart => (
-        <React.Fragment key={chart.id}>
+        <Container key={chart.id}>
           <InputBlockWrap>
             <InputBlock
               nthDayValue={chart.nthDay}
@@ -32,7 +32,7 @@ export const InputChartBlocks = () => {
           <ChartBlockWrap>
             <ChartBlock />
           </ChartBlockWrap>
-        </React.Fragment>
+        </Container>
       ))}
       <AddBlockButton
         onClick={() => {
@@ -49,14 +49,17 @@ export const InputChartBlocks = () => {
 }
 
 const Wrapper = styled.div`
-  display: grid;
-  position: relative;
-  grid-template-columns: 400px auto;
-  grid-template-rows: 1fr;
-  gap: 40px 40px;
   width: 1110px;
   margin: 0 auto;
   padding: 40px 0;
+`
+
+const Container = styled.div`
+  display: grid;
+  grid-template-columns: 400px auto;
+  grid-template-rows: 1fr;
+  gap: 40px 40px;
+  margin-bottom: 40px;
 `
 
 const InputBlockWrap = styled.div`

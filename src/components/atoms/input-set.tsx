@@ -7,7 +7,7 @@ interface IInputSetProps {
   type: string
   value: number
   labelText: string
-  singleBlock: boolean
+  block: boolean
 }
 
 export const InputSet = ({
@@ -15,14 +15,18 @@ export const InputSet = ({
   type,
   value,
   labelText,
-  singleBlock
+  block
 }: IInputSetProps) => {
   return (
     <Wrapper>
-      <StyledInputLabel singleBlock={singleBlock}>
+      <InputLabel
+        style={{
+          width: block ? '100%' : '160px'
+        }}
+      >
         <LabelText>{labelText}</LabelText>
         <Input id={id} type={type} value={value} />
-      </StyledInputLabel>
+      </InputLabel>
     </Wrapper>
   )
 }
@@ -31,20 +35,6 @@ const Wrapper = styled.div`
   &:nth-of-type(n + 2) {
     margin-top: 2rem;
   }
-`
-
-interface IStyledInputLabel {
-  singleBlock: boolean
-}
-
-const StyledInputLabel = styled(InputLabel)<IStyledInputLabel>`
-  width: 160px;
-
-  ${({ singleBlock }) =>
-    singleBlock &&
-    `
-    width: 100%;
-  `}
 `
 
 const LabelText = styled.span`

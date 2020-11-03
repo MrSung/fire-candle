@@ -74,7 +74,7 @@ export const InputBlock = ({
             type='number'
             value={value}
             labelText={labelText}
-            singleBlock={id === NTH_DAY}
+            block={id === NTH_DAY}
           />
         )
       })}

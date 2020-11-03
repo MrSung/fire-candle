@@ -20,6 +20,7 @@ export const InputBlocks = () => {
       {charts.map(chart => (
         <InputBlockWrap key={chart.id}>
           <InputBlock
+            nthDayValue={chart.nthDay}
             openRateValue={chart.openRate}
             closeRateValue={chart.closeRate}
             lowPriceValue={chart.lowPrice}

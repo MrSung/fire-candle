@@ -7,12 +7,19 @@ interface IInputSetProps {
   type: string
   value: number
   labelText: string
+  style: React.CSSProperties | undefined
 }
 
-export const InputSet = ({ id, type, value, labelText }: IInputSetProps) => {
+export const InputSet = ({
+  id,
+  type,
+  value,
+  labelText,
+  style
+}: IInputSetProps) => {
   return (
     <Wrapper>
-      <StyledInputLabel>
+      <StyledInputLabel style={style}>
         <LabelText>{labelText}</LabelText>
         <Input id={id} type={type} value={value} />
       </StyledInputLabel>
@@ -21,7 +28,7 @@ export const InputSet = ({ id, type, value, labelText }: IInputSetProps) => {
 }
 
 const Wrapper = styled.div`
-  &:nth-of-type(n + 3) {
+  &:nth-of-type(n + 2) {
     margin-top: 2rem;
   }
 `

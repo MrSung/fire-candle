@@ -2,12 +2,17 @@ import React from 'react'
 import styled from 'styled-components'
 import { InputSet } from '../atoms/input-set'
 
+const NTH_DAY = 'nthDay'
 const OPEN_RATE = 'openRate'
 const CLOSE_RATE = 'closeRate'
 const LOW_PRICE = 'lowPrice'
 const HIGH_PRICE = 'highPrice'
 
 const inputBlockItems = [
+  {
+    id: NTH_DAY,
+    labelText: '何日目（nth day）'
+  },
   {
     id: OPEN_RATE,
     labelText: '始値（open rate）'
@@ -27,6 +32,7 @@ const inputBlockItems = [
 ]
 
 interface IInputBlockProps {
+  nthDayValue: number
   openRateValue: number
   closeRateValue: number
   lowPriceValue: number
@@ -34,6 +40,7 @@ interface IInputBlockProps {
 }
 
 export const InputBlock = ({
+  nthDayValue,
   openRateValue,
   closeRateValue,
   lowPriceValue,
@@ -44,6 +51,9 @@ export const InputBlock = ({
       {inputBlockItems.map(({ id, labelText }) => {
         let value = 0
         switch (id) {
+          case NTH_DAY:
+            value = nthDayValue
+            break
           case OPEN_RATE:
             value = openRateValue
             break
@@ -64,6 +74,9 @@ export const InputBlock = ({
             type='number'
             value={value}
             labelText={labelText}
+            style={{
+              width: id === NTH_DAY ? '100%' : ''
+            }}
           />
         )
       })}

@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export interface IChart {
   id: string
+  nthDay: number
   openRate: number
   closeRate: number
   lowPrice: number
@@ -11,6 +12,7 @@ export interface IChart {
 export const chartsInitialState: IChart[] = [
   {
     id: '',
+    nthDay: 1,
     openRate: 0,
     closeRate: 0,
     lowPrice: 0,
@@ -30,6 +32,7 @@ export const chartsSlice = createSlice({
       if (typeof matchedItem === 'undefined') {
         return
       }
+      matchedItem.nthDay = payload.nthDay
       matchedItem.openRate = payload.openRate
       matchedItem.closeRate = payload.closeRate
       matchedItem.lowPrice = payload.lowPrice

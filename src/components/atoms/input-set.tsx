@@ -21,7 +21,7 @@ export const InputSet = ({
     <Wrapper>
       <InputLabel
         style={{
-          width: block ? '100%' : '160px'
+          width: block ? '100%' : '120px'
         }}
       >
         <LabelText>{labelText}</LabelText>

@@ -56,7 +56,7 @@ const Wrapper = styled.div`
 
 const Container = styled.div`
   display: grid;
-  grid-template-columns: 400px auto;
+  grid-template-columns: 320px auto;
   grid-template-rows: 1fr;
   gap: 40px 40px;
   margin-bottom: 40px;

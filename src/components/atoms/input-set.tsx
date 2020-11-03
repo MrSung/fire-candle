@@ -8,6 +8,7 @@ interface IInputSetProps {
   value: string | number
   placeholder: string
   labelText: string
+  onChange: (ev: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 export const InputSet = ({
@@ -15,7 +16,8 @@ export const InputSet = ({
   type,
   value,
   placeholder,
-  labelText
+  labelText,
+  onChange
 }: IInputSetProps) => {
   return (
     <Wrapper>
@@ -30,6 +32,7 @@ export const InputSet = ({
           type={type}
           value={value}
           placeholder={placeholder}
+          onChange={onChange}
         />
       </InputLabel>
     </Wrapper>

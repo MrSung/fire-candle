@@ -5,34 +5,34 @@ import { Input, InputLabel } from '@material-ui/core'
 interface IInputSetProps {
   id: string
   type: string
-  value: number
+  value: string | number
+  placeholder: string
   labelText: string
-  block: boolean
 }
 
 export const InputSet = ({
   id,
   type,
   value,
-  labelText,
-  block
+  placeholder,
+  labelText
 }: IInputSetProps) => {
   return (
     <Wrapper>
       <InputLabel
         style={{
-          width: block ? '100%' : '120px'
+          width: '120px'
         }}
       >
         <LabelText>{labelText}</LabelText>
-        <Input id={id} type={type} value={value} />
+        <Input id={id} type={type} value={value} placeholder={placeholder} />
       </InputLabel>
     </Wrapper>
   )
 }
 
 const Wrapper = styled.div`
-  &:nth-of-type(n + 2) {
+  &:nth-of-type(n + 3) {
     margin-top: 2rem;
   }
 `

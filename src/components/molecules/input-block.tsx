@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { InputSet } from '../atoms/input-set'
 
+const PLAYER_NAME = 'playerName'
 const NTH_DAY = 'nthDay'
 const OPEN_RATE = 'openRate'
 const CLOSE_RATE = 'closeRate'
@@ -9,6 +10,10 @@ const LOW_PRICE = 'lowPrice'
 const HIGH_PRICE = 'highPrice'
 
 const inputBlockItems = [
+  {
+    id: PLAYER_NAME,
+    labelText: 'プレイヤー：'
+  },
   {
     id: NTH_DAY,
     labelText: '何日目：'
@@ -32,6 +37,7 @@ const inputBlockItems = [
 ]
 
 interface IInputBlockProps {
+  playerName: string
   nthDayValue: number
   openRateValue: number
   closeRateValue: number
@@ -39,42 +45,42 @@ interface IInputBlockProps {
   highPriceValue: number
 }
 
-export const InputBlock = ({
-  nthDayValue,
-  openRateValue,
-  closeRateValue,
-  lowPriceValue,
-  highPriceValue
-}: IInputBlockProps) => {
+const getInputValue = (id: string, props: IInputBlockProps) => {
+  switch (id) {
+    case PLAYER_NAME:
+      return {
+        type: 'text',
+        value: props.playerName,
+        placeholder: 'デモ太郎'
+      }
+    case NTH_DAY:
+      return { type: 'number', value: props.nthDayValue, placeholder: '' }
+    case OPEN_RATE:
+      return { type: 'number', value: props.openRateValue, placeholder: '' }
+    case CLOSE_RATE:
+      return { type: 'number', value: props.closeRateValue, placeholder: '' }
+    case LOW_PRICE:
+      return { type: 'number', value: props.lowPriceValue, placeholder: '' }
+    case HIGH_PRICE:
+      return { type: 'number', value: props.highPriceValue, placeholder: '' }
+    default:
+      return { type: 'text', value: '', placeholder: '' }
+  }
+}
+
+export const InputBlock = (props: IInputBlockProps) => {
   return (
     <Wrapper>
       {inputBlockItems.map(({ id, labelText }) => {
-        let value = 0
-        switch (id) {
-          case NTH_DAY:
-            value = nthDayValue
-            break
-          case OPEN_RATE:
-            value = openRateValue
-            break
-          case CLOSE_RATE:
-            value = closeRateValue
-            break
-          case LOW_PRICE:
-            value = lowPriceValue
-            break
-          case HIGH_PRICE:
-            value = highPriceValue
-            break
-        }
+        const { type, value, placeholder } = getInputValue(id, props)
         return (
           <InputSet
             key={id}
             id={id}
-            type='number'
+            type={type}
             value={value}
+            placeholder={placeholder}
             labelText={labelText}
-            block={id === NTH_DAY}
           />
         )
       })}

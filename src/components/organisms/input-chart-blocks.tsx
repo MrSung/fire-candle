@@ -22,6 +22,7 @@ export const InputChartBlocks = () => {
         <Container key={chart.id}>
           <InputBlockWrap>
             <InputBlock
+              playerName={chart.playerName}
               nthDayValue={chart.nthDay}
               openRateValue={chart.openRate}
               closeRateValue={chart.closeRate}

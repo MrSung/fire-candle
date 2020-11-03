@@ -10,17 +10,24 @@ export const AddBlockButton = ({ onClick }: IAddBlockButton) => {
   return (
     <Wrapper type='button' onClick={onClick}>
       <AddCircle color='primary' style={{ fontSize: 40 }} />
+      <ButtonText>カラムを追加する</ButtonText>
     </Wrapper>
   )
 }
 
 const Wrapper = styled.button`
   display: flex;
-  margin: 0 auto;
-  padding: 0;
+  align-items: center;
+  margin: -8px auto 0;
+  padding: 4px;
   border: none;
   outline: none;
   background-color: transparent;
   cursor: pointer;
   appearance: none;
+`
+
+const ButtonText = styled.span`
+  margin-left: 0.5em;
+  font-size: 16px;
 `

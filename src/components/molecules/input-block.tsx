@@ -11,23 +11,23 @@ const HIGH_PRICE = 'highPrice'
 const inputBlockItems = [
   {
     id: NTH_DAY,
-    labelText: '何日目（nth day）'
+    labelText: '何日目：'
   },
   {
     id: OPEN_RATE,
-    labelText: '始値（open rate）'
+    labelText: '始値：'
   },
   {
     id: CLOSE_RATE,
-    labelText: '終値（close rate）'
+    labelText: '終値：'
   },
   {
     id: LOW_PRICE,
-    labelText: '安値（low price）'
+    labelText: '安値：'
   },
   {
     id: HIGH_PRICE,
-    labelText: '高値（high price）'
+    labelText: '高値：'
   }
 ]
 

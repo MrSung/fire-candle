@@ -12,8 +12,8 @@ export interface IChart {
 
 export const chartsInitialState: IChart[] = [
   {
-    id: '',
-    playerName: nanoid(),
+    id: nanoid(),
+    playerName: '',
     nthDay: 1,
     openRate: 0,
     closeRate: 0,

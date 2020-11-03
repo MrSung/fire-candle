@@ -30,7 +30,11 @@ export const chartsSlice = createSlice({
       state.push(payload)
     },
     deleteColumn: (state, { payload }: PayloadAction<{ id: string }>) => {
-      state = state.filter(item => payload.id !== item.id)
+      const index = state.findIndex(item => payload.id === item.id)
+      if (index === -1) {
+        return
+      }
+      state.splice(index, 1)
     },
     editPlayerName: (
       state,

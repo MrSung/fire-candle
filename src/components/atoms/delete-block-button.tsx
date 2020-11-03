@@ -24,6 +24,7 @@ const Wrapper = styled.button`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 48px;
   margin: auto 0;
   padding: 4px;
   border: none;
@@ -35,7 +36,7 @@ const Wrapper = styled.button`
 
 const ButtonText = styled.span`
   margin-top: 0.5em;
-  margin-right: 0.2em;
+  margin-right: 0.15em;
   font-size: 16px;
   writing-mode: vertical-rl;
   text-orientation: upright;

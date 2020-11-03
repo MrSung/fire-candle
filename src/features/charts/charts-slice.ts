@@ -26,8 +26,11 @@ export const chartsSlice = createSlice({
   name: 'charts',
   initialState: chartsInitialState,
   reducers: {
-    addNewInput: (state, { payload }: PayloadAction<IChart>) => {
+    addNewColumn: (state, { payload }: PayloadAction<IChart>) => {
       state.push(payload)
+    },
+    deleteColumn: (state, { payload }: PayloadAction<{ id: string }>) => {
+      state = state.filter(item => payload.id !== item.id)
     },
     editPlayerName: (
       state,

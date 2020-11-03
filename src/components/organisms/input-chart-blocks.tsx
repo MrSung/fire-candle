@@ -15,7 +15,7 @@ import { AddBlockButton } from '../atoms/add-block-button'
 export const InputChartBlocks = () => {
   const charts = useSelector((state: RootState) => state.charts)
   const dispatch = useDispatch()
-  const { addNewInput } = chartsSlice.actions
+  const { addNewColumn, deleteColumn } = chartsSlice.actions
 
   return (
     <Wrapper>
@@ -37,8 +37,7 @@ export const InputChartBlocks = () => {
           </ChartBlockWrap>
           <DeleteBlockButton
             onClick={() => {
-              // eslint-disable-next-line no-console
-              console.log('Delete block button')
+              dispatch(deleteColumn({ id: chart.id }))
             }}
           />
         </Container>
@@ -46,7 +45,7 @@ export const InputChartBlocks = () => {
       <AddBlockButton
         onClick={() => {
           dispatch(
-            addNewInput({
+            addNewColumn({
               ...chartsInitialState[0],
               id: nanoid()
             })

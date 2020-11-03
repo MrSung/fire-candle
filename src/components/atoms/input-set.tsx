@@ -5,7 +5,7 @@ import { Input, InputLabel } from '@material-ui/core'
 interface IInputSetProps {
   inputId: string
   type: string
-  value: string | number
+  value: string
   placeholder: string
   labelText: string
   onChange: (ev: React.ChangeEvent<HTMLInputElement>) => void

@@ -16,11 +16,11 @@ enum inputId {
 interface IInputBlockProps {
   chartId: string
   playerName: string
-  nthDayValue: number
-  openRateValue: number
-  closeRateValue: number
-  lowPriceValue: number
-  highPriceValue: number
+  nthDayValue: string
+  openRateValue: string
+  closeRateValue: string
+  lowPriceValue: string
+  highPriceValue: string
 }
 
 export const InputBlock = (props: IInputBlockProps) => {
@@ -55,9 +55,7 @@ export const InputBlock = (props: IInputBlockProps) => {
         placeholder=''
         labelText='何日目：'
         onChange={ev => {
-          dispatch(
-            editNthDay({ id: props.chartId, nthDay: Number(ev.target.value) })
-          )
+          dispatch(editNthDay({ id: props.chartId, nthDay: ev.target.value }))
         }}
       />
       <InputSet
@@ -70,7 +68,7 @@ export const InputBlock = (props: IInputBlockProps) => {
           dispatch(
             editOpenRate({
               id: props.chartId,
-              openRate: Number(ev.target.value)
+              openRate: ev.target.value
             })
           )
         }}
@@ -85,7 +83,7 @@ export const InputBlock = (props: IInputBlockProps) => {
           dispatch(
             editCloseRate({
               id: props.chartId,
-              closeRate: Number(ev.target.value)
+              closeRate: ev.target.value
             })
           )
         }}
@@ -100,7 +98,7 @@ export const InputBlock = (props: IInputBlockProps) => {
           dispatch(
             editLowPrice({
               id: props.chartId,
-              lowPrice: Number(ev.target.value)
+              lowPrice: ev.target.value
             })
           )
         }}
@@ -115,7 +113,7 @@ export const InputBlock = (props: IInputBlockProps) => {
           dispatch(
             editHighPrice({
               id: props.chartId,
-              highPrice: Number(ev.target.value)
+              highPrice: ev.target.value
             })
           )
         }}

@@ -3,22 +3,22 @@ import { createSlice, PayloadAction, nanoid } from '@reduxjs/toolkit'
 export interface IChart {
   id: string
   playerName: string
-  nthDay: number
-  openRate: number
-  closeRate: number
-  lowPrice: number
-  highPrice: number
+  nthDay: string
+  openRate: string
+  closeRate: string
+  lowPrice: string
+  highPrice: string
 }
 
 export const chartsInitialState: IChart[] = [
   {
     id: nanoid(),
     playerName: '',
-    nthDay: 1,
-    openRate: 0,
-    closeRate: 0,
-    lowPrice: 0,
-    highPrice: 0
+    nthDay: '1',
+    openRate: '0',
+    closeRate: '0',
+    lowPrice: '0',
+    highPrice: '0'
   }
 ]
 
@@ -48,7 +48,7 @@ export const chartsSlice = createSlice({
     },
     editNthDay: (
       state,
-      { payload }: PayloadAction<{ id: string; nthDay: number }>
+      { payload }: PayloadAction<{ id: string; nthDay: string }>
     ) => {
       const matchedItem = state.find(item => payload.id === item.id)
       if (typeof matchedItem === 'undefined') {
@@ -58,7 +58,7 @@ export const chartsSlice = createSlice({
     },
     editOpenRate: (
       state,
-      { payload }: PayloadAction<{ id: string; openRate: number }>
+      { payload }: PayloadAction<{ id: string; openRate: string }>
     ) => {
       const matchedItem = state.find(item => payload.id === item.id)
       if (typeof matchedItem === 'undefined') {
@@ -68,7 +68,7 @@ export const chartsSlice = createSlice({
     },
     editCloseRate: (
       state,
-      { payload }: PayloadAction<{ id: string; closeRate: number }>
+      { payload }: PayloadAction<{ id: string; closeRate: string }>
     ) => {
       const matchedItem = state.find(item => payload.id === item.id)
       if (typeof matchedItem === 'undefined') {
@@ -78,7 +78,7 @@ export const chartsSlice = createSlice({
     },
     editLowPrice: (
       state,
-      { payload }: PayloadAction<{ id: string; lowPrice: number }>
+      { payload }: PayloadAction<{ id: string; lowPrice: string }>
     ) => {
       const matchedItem = state.find(item => payload.id === item.id)
       if (typeof matchedItem === 'undefined') {
@@ -88,7 +88,7 @@ export const chartsSlice = createSlice({
     },
     editHighPrice: (
       state,
-      { payload }: PayloadAction<{ id: string; highPrice: number }>
+      { payload }: PayloadAction<{ id: string; highPrice: string }>
     ) => {
       const matchedItem = state.find(item => payload.id === item.id)
       if (typeof matchedItem === 'undefined') {

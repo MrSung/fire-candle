@@ -74,9 +74,7 @@ export const InputBlock = ({
             type='number'
             value={value}
             labelText={labelText}
-            style={{
-              width: id === NTH_DAY ? '100%' : ''
-            }}
+            singleBlock={id === NTH_DAY}
           />
         )
       })}

@@ -7,7 +7,7 @@ interface IInputSetProps {
   type: string
   value: number
   labelText: string
-  style: React.CSSProperties | undefined
+  singleBlock: boolean
 }
 
 export const InputSet = ({
@@ -15,11 +15,11 @@ export const InputSet = ({
   type,
   value,
   labelText,
-  style
+  singleBlock
 }: IInputSetProps) => {
   return (
     <Wrapper>
-      <StyledInputLabel style={style}>
+      <StyledInputLabel singleBlock={singleBlock}>
         <LabelText>{labelText}</LabelText>
         <Input id={id} type={type} value={value} />
       </StyledInputLabel>
@@ -33,8 +33,18 @@ const Wrapper = styled.div`
   }
 `
 
-const StyledInputLabel = styled(InputLabel)`
+interface IStyledInputLabel {
+  singleBlock: boolean
+}
+
+const StyledInputLabel = styled(InputLabel)<IStyledInputLabel>`
   width: 160px;
+
+  ${({ singleBlock }) =>
+    singleBlock &&
+    `
+    width: 100%;
+  `}
 `
 
 const LabelText = styled.span`

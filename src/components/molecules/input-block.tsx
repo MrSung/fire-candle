@@ -5,27 +5,27 @@ import { InputSet } from '../atoms/input-set'
 
 const inputBlockItems = [
   {
-    id: inputLabel.PLAYER_NAME,
+    inputId: inputLabel.PLAYER_NAME,
     labelText: 'プレイヤー：'
   },
   {
-    id: inputLabel.NTH_DAY,
+    inputId: inputLabel.NTH_DAY,
     labelText: '何日目：'
   },
   {
-    id: inputLabel.OPEN_RATE,
+    inputId: inputLabel.OPEN_RATE,
     labelText: '始値：'
   },
   {
-    id: inputLabel.CLOSE_RATE,
+    inputId: inputLabel.CLOSE_RATE,
     labelText: '終値：'
   },
   {
-    id: inputLabel.LOW_PRICE,
+    inputId: inputLabel.LOW_PRICE,
     labelText: '安値：'
   },
   {
-    id: inputLabel.HIGH_PRICE,
+    inputId: inputLabel.HIGH_PRICE,
     labelText: '高値：'
   }
 ]
@@ -39,8 +39,8 @@ interface IInputBlockProps {
   highPriceValue: number
 }
 
-const getInputValue = (id: string, props: IInputBlockProps) => {
-  switch (id) {
+const getInputValue = (inputId: string, props: IInputBlockProps) => {
+  switch (inputId) {
     case inputLabel.PLAYER_NAME:
       return {
         type: 'text',
@@ -65,12 +65,12 @@ const getInputValue = (id: string, props: IInputBlockProps) => {
 export const InputBlock = (props: IInputBlockProps) => {
   return (
     <Wrapper>
-      {inputBlockItems.map(({ id, labelText }) => {
-        const { type, value, placeholder } = getInputValue(id, props)
+      {inputBlockItems.map(({ inputId, labelText }) => {
+        const { type, value, placeholder } = getInputValue(inputId, props)
         return (
           <InputSet
-            key={id}
-            id={id}
+            key={inputId}
+            inputId={inputId}
             type={type}
             value={value}
             placeholder={placeholder}

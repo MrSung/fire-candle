@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { Input, InputLabel } from '@material-ui/core'
 
 interface IInputSetProps {
-  id: string
+  inputId: string
   type: string
   value: string | number
   placeholder: string
@@ -11,7 +11,7 @@ interface IInputSetProps {
 }
 
 export const InputSet = ({
-  id,
+  inputId,
   type,
   value,
   placeholder,
@@ -25,7 +25,12 @@ export const InputSet = ({
         }}
       >
         <LabelText>{labelText}</LabelText>
-        <Input id={id} type={type} value={value} placeholder={placeholder} />
+        <Input
+          id={inputId}
+          type={type}
+          value={value}
+          placeholder={placeholder}
+        />
       </InputLabel>
     </Wrapper>
   )

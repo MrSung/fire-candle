@@ -9,6 +9,7 @@ import {
 } from '../../features/charts/charts-slice'
 import { InputBlock } from '../molecules/input-block'
 import { ChartBlock } from '../molecules/chart-block'
+import { DeleteBlockButton } from '../atoms/delete-block-button'
 import { AddBlockButton } from '../atoms/add-block-button'
 
 export const InputChartBlocks = () => {
@@ -34,6 +35,12 @@ export const InputChartBlocks = () => {
           <ChartBlockWrap>
             <ChartBlock />
           </ChartBlockWrap>
+          <DeleteBlockButton
+            onClick={() => {
+              // eslint-disable-next-line no-console
+              console.log('Delete block button')
+            }}
+          />
         </Container>
       ))}
       <AddBlockButton
@@ -53,15 +60,19 @@ export const InputChartBlocks = () => {
 const Wrapper = styled.div`
   width: 1110px;
   margin: 0 auto;
-  padding: 40px 0;
+  padding: 60px 0;
 `
 
 const Container = styled.div`
   display: grid;
+  position: relative;
   grid-template-columns: 320px auto;
   grid-template-rows: 1fr;
   gap: 40px 40px;
-  margin-bottom: 40px;
+
+  &:not(:last-of-type) {
+    margin-bottom: 48px;
+  }
 `
 
 const InputBlockWrap = styled.div`

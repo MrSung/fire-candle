@@ -18,7 +18,7 @@ export const AddBlockButton = ({ onClick }: IAddBlockButton) => {
 const Wrapper = styled.button`
   display: flex;
   align-items: center;
-  margin: -8px auto 0;
+  margin: 12px auto 0;
   padding: 4px;
   border: none;
   outline: none;

@@ -8,9 +8,10 @@ import {
   chartsInitialState
 } from '../../features/charts/charts-slice'
 import { InputBlock } from '../molecules/input-block'
+import { ChartBlock } from '../molecules/chart-block'
 import { AddBlockButton } from '../atoms/add-block-button'
 
-export const InputBlocks = () => {
+export const InputChartBlocks = () => {
   const charts = useSelector((state: RootState) => state.charts)
   const dispatch = useDispatch()
   const { addNewInput } = chartsSlice.actions
@@ -18,15 +19,20 @@ export const InputBlocks = () => {
   return (
     <Wrapper>
       {charts.map(chart => (
-        <InputBlockWrap key={chart.id}>
-          <InputBlock
-            nthDayValue={chart.nthDay}
-            openRateValue={chart.openRate}
-            closeRateValue={chart.closeRate}
-            lowPriceValue={chart.lowPrice}
-            highPriceValue={chart.highPrice}
-          />
-        </InputBlockWrap>
+        <React.Fragment key={chart.id}>
+          <InputBlockWrap>
+            <InputBlock
+              nthDayValue={chart.nthDay}
+              openRateValue={chart.openRate}
+              closeRateValue={chart.closeRate}
+              lowPriceValue={chart.lowPrice}
+              highPriceValue={chart.highPrice}
+            />
+          </InputBlockWrap>
+          <ChartBlockWrap>
+            <ChartBlock />
+          </ChartBlockWrap>
+        </React.Fragment>
       ))}
       <AddBlockButton
         onClick={() => {
@@ -43,7 +49,14 @@ export const InputBlocks = () => {
 }
 
 const Wrapper = styled.div`
+  display: grid;
   position: relative;
+  grid-template-columns: 400px auto;
+  grid-template-rows: 1fr;
+  gap: 40px 40px;
+  width: 1110px;
+  margin: 0 auto;
+  padding: 40px 0;
 `
 
 const InputBlockWrap = styled.div`
@@ -55,4 +68,11 @@ const InputBlockWrap = styled.div`
   & + & {
     margin-top: 32px;
   }
+`
+
+const ChartBlockWrap = styled.div`
+  padding: 28px 28px 40px;
+  border-radius: 4px;
+  background-color: #fff;
+  box-shadow: 0 0 14px 0 rgba(53, 64, 82, 0.05);
 `

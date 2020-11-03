@@ -1,6 +1,0 @@
-export const PLAYER_NAME = 'playerName'
-export const NTH_DAY = 'nthDay'
-export const OPEN_RATE = 'openRate'
-export const CLOSE_RATE = 'closeRate'
-export const LOW_PRICE = 'lowPrice'
-export const HIGH_PRICE = 'highPrice'

@@ -2,8 +2,16 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 import { chartsSlice } from '../../features/charts/charts-slice'
-import * as inputId from '../../const/input-label'
 import { InputSet } from '../atoms/input-set'
+
+enum inputId {
+  PLAYER_NAME = 'playerName',
+  NTH_DAY = 'nthDay',
+  OPEN_RATE = 'openRate',
+  CLOSE_RATE = 'closeRate',
+  LOW_PRICE = 'lowPrice',
+  HIGH_PRICE = 'highPrice'
+}
 
 interface IInputBlockProps {
   chartId: string

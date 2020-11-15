@@ -1,7 +1,7 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+// import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
-import { chartsSlice } from '../../features/charts/charts-slice'
+// import { chartsSlice } from '../../features/charts/charts-slice'
 import { InputSet } from '../atoms/input-set'
 import { InputSwitcher } from '../atoms/input-switcher'
 
@@ -25,15 +25,15 @@ interface IInputBlockProps {
 }
 
 export const InputBlock = (props: IInputBlockProps) => {
-  const dispatch = useDispatch()
-  const {
-    editPlayerName,
-    // editNthDay,
-    editOpenRate,
-    editCloseRate,
-    editLowPrice,
-    editHighPrice
-  } = chartsSlice.actions
+  // const dispatch = useDispatch()
+  // const {
+  //   editPlayerName,
+  //   editNthDay,
+  //   editOpenRate,
+  //   editCloseRate,
+  //   editLowPrice,
+  //   editHighPrice
+  // } = chartsSlice.actions
 
   return (
     <Wrapper>
@@ -43,10 +43,10 @@ export const InputBlock = (props: IInputBlockProps) => {
         value={props.playerName}
         placeholder='デモ太郎'
         labelText='プレイヤー：'
-        onChange={ev => {
-          dispatch(
-            editPlayerName({ id: props.chartId, playerName: ev.target.value })
-          )
+        onChange={_ => {
+          // dispatch(
+          //   editPlayerName({ id: props.chartId, playerName: ev.target.value })
+          // )
         }}
       />
       <InputSwitcher
@@ -62,13 +62,13 @@ export const InputBlock = (props: IInputBlockProps) => {
         value={props.openRateValue}
         placeholder=''
         labelText='始値：'
-        onChange={ev => {
-          dispatch(
-            editOpenRate({
-              id: props.chartId,
-              openRate: ev.target.value
-            })
-          )
+        onChange={_ => {
+          // dispatch(
+          //   editOpenRate({
+          //     id: props.chartId,
+          //     openRate: ev.target.value
+          //   })
+          // )
         }}
       />
       <InputSet
@@ -77,13 +77,13 @@ export const InputBlock = (props: IInputBlockProps) => {
         value={props.closeRateValue}
         placeholder=''
         labelText='終値：'
-        onChange={ev => {
-          dispatch(
-            editCloseRate({
-              id: props.chartId,
-              closeRate: ev.target.value
-            })
-          )
+        onChange={_ => {
+          // dispatch(
+          //   editCloseRate({
+          //     id: props.chartId,
+          //     closeRate: ev.target.value
+          //   })
+          // )
         }}
       />
       <InputSet
@@ -92,13 +92,13 @@ export const InputBlock = (props: IInputBlockProps) => {
         value={props.lowPriceValue}
         placeholder=''
         labelText='安値：'
-        onChange={ev => {
-          dispatch(
-            editLowPrice({
-              id: props.chartId,
-              lowPrice: ev.target.value
-            })
-          )
+        onChange={_ => {
+          // dispatch(
+          //   editLowPrice({
+          //     id: props.chartId,
+          //     lowPrice: ev.target.value
+          //   })
+          // )
         }}
       />
       <InputSet
@@ -107,13 +107,13 @@ export const InputBlock = (props: IInputBlockProps) => {
         value={props.highPriceValue}
         placeholder=''
         labelText='高値：'
-        onChange={ev => {
-          dispatch(
-            editHighPrice({
-              id: props.chartId,
-              highPrice: ev.target.value
-            })
-          )
+        onChange={_ => {
+          // dispatch(
+          //   editHighPrice({
+          //     id: props.chartId,
+          //     highPrice: ev.target.value
+          //   })
+          // )
         }}
       />
     </Wrapper>

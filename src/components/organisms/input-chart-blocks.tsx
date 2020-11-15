@@ -3,10 +3,7 @@ import { nanoid } from '@reduxjs/toolkit'
 import { useSelector, useDispatch } from 'react-redux'
 import styled from 'styled-components'
 import { RootState } from '../../app/reducer'
-import {
-  chartsSlice,
-  initialChartsState
-} from '../../features/charts/charts-slice'
+import { chartsSlice } from '../../features/charts/charts-slice'
 import { InputBlock } from '../molecules/input-block'
 import { ChartBlock } from '../molecules/chart-block'
 import { DeleteBlockButton } from '../atoms/delete-block-button'
@@ -14,40 +11,47 @@ import { AddBlockButton } from '../atoms/add-block-button'
 
 export const InputChartBlocks = () => {
   const charts = useSelector((state: RootState) => state.charts)
+  const chartsValues = Object.values(charts)
   const dispatch = useDispatch()
   const { addNewColumn, deleteColumn } = chartsSlice.actions
 
   return (
     <Wrapper>
-      {charts.map(chart => (
-        <Container key={chart.id}>
-          <InputBlockWrap>
-            <InputBlock
-              chartId={chart.id}
-              playerName={chart.playerName}
-              nthDayValue={chart.nthDay}
-              openRateValue={chart.openRate}
-              closeRateValue={chart.closeRate}
-              lowPriceValue={chart.lowPrice}
-              highPriceValue={chart.highPrice}
+      {chartsValues.map(arr => {
+        const chartId = arr[0].id
+        const selected = arr.find(a => a.isSelected)
+        if (typeof selected === 'undefined') {
+          return null
+        }
+        return (
+          <Container key={chartId}>
+            <InputBlockWrap>
+              <InputBlock
+                chartId={chartId}
+                playerName={selected.playerName}
+                nthDayValue={selected.nthDay}
+                openRateValue={selected.openRate}
+                closeRateValue={selected.closeRate}
+                lowPriceValue={selected.lowPrice}
+                highPriceValue={selected.highPrice}
+              />
+            </InputBlockWrap>
+            <ChartBlockWrap>
+              <ChartBlock />
+            </ChartBlockWrap>
+            <DeleteBlockButton
+              onClick={() => {
+                dispatch(deleteColumn({ id: chartId }))
+              }}
             />
-          </InputBlockWrap>
-          <ChartBlockWrap>
-            <ChartBlock />
-          </ChartBlockWrap>
-          <DeleteBlockButton
-            onClick={() => {
-              dispatch(deleteColumn({ id: chart.id }))
-            }}
-          />
-        </Container>
-      ))}
+          </Container>
+        )
+      })}
       <AddBlockButton
         onClick={() => {
           dispatch(
             addNewColumn({
-              ...initialChartsState[0],
-              id: nanoid()
+              newRandomId: nanoid()
             })
           )
         }}

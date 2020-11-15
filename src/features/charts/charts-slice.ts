@@ -10,7 +10,7 @@ export interface IChart {
   highPrice: string
 }
 
-export const chartsInitialState: IChart[] = [
+export const initialChartsState: IChart[] = [
   {
     id: nanoid(),
     playerName: '',
@@ -24,7 +24,7 @@ export const chartsInitialState: IChart[] = [
 
 export const chartsSlice = createSlice({
   name: 'charts',
-  initialState: chartsInitialState,
+  initialState: initialChartsState,
   reducers: {
     addNewColumn: (state, { payload }: PayloadAction<IChart>) => {
       state.push(payload)

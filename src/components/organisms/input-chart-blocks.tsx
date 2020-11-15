@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import { RootState } from '../../app/reducer'
 import {
   chartsSlice,
-  chartsInitialState
+  initialChartsState
 } from '../../features/charts/charts-slice'
 import { InputBlock } from '../molecules/input-block'
 import { ChartBlock } from '../molecules/chart-block'
@@ -46,7 +46,7 @@ export const InputChartBlocks = () => {
         onClick={() => {
           dispatch(
             addNewColumn({
-              ...chartsInitialState[0],
+              ...initialChartsState[0],
               id: nanoid()
             })
           )

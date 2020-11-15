@@ -10,6 +10,7 @@ interface IInputSwitcherProps {
   value: string
   placeholder: string
   labelText: string
+  onRightButtonClick: () => void
 }
 
 export const InputSwitcher = ({
@@ -17,7 +18,8 @@ export const InputSwitcher = ({
   type,
   value,
   placeholder,
-  labelText
+  labelText,
+  onRightButtonClick
 }: IInputSwitcherProps) => (
   <Wrapper>
     <InputLabel
@@ -38,7 +40,10 @@ export const InputSwitcher = ({
           readOnly
           style={{ width: '40px' }}
         />
-        <Button style={{ width: '36px', minWidth: '36px' }}>
+        <Button
+          onClick={onRightButtonClick}
+          style={{ width: '36px', minWidth: '36px' }}
+        >
           <ArrowRightIcon />
         </Button>
       </ButtonContainer>

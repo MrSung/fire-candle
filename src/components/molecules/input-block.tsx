@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 import { chartsSlice } from '../../features/charts/charts-slice'
 import { InputSet } from '../atoms/input-set'
+import { InputSwitcher } from '../atoms/input-switcher'
 
 enum inputId {
   PLAYER_NAME = 'playerName',
@@ -27,7 +28,7 @@ export const InputBlock = (props: IInputBlockProps) => {
   const dispatch = useDispatch()
   const {
     editPlayerName,
-    editNthDay,
+    // editNthDay,
     editOpenRate,
     editCloseRate,
     editLowPrice,
@@ -48,15 +49,12 @@ export const InputBlock = (props: IInputBlockProps) => {
           )
         }}
       />
-      <InputSet
+      <InputSwitcher
         inputId={inputId.NTH_DAY}
         type='number'
         value={props.nthDayValue}
         placeholder=''
         labelText='何日目：'
-        onChange={ev => {
-          dispatch(editNthDay({ id: props.chartId, nthDay: ev.target.value }))
-        }}
       />
       <InputSet
         inputId={inputId.OPEN_RATE}

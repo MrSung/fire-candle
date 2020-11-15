@@ -20,11 +20,11 @@ export interface IChartValue {
 export const initialChartValue: IChartValue = {
   id: initialRandomId,
   playerName: '',
-  nthDay: '',
-  openRate: '',
-  closeRate: '',
-  lowPrice: '',
-  highPrice: '',
+  nthDay: '1',
+  openRate: '0',
+  closeRate: '0',
+  lowPrice: '0',
+  highPrice: '0',
   isSelected: true
 }
 
@@ -44,9 +44,7 @@ export const chartsSlice = createSlice({
       [payload.newRandomId]: [{ ...initialChartValue, id: payload.newRandomId }]
     }),
     deleteColumn: (state, { payload }: PayloadAction<{ id: string }>) => {
-      const newState = { ...state }
       delete state[payload.id]
-      return newState
     }
     // editPlayerName: (
     //   state,

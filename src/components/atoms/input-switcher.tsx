@@ -10,7 +10,7 @@ interface IInputSwitcherProps {
   value: string
   placeholder: string
   labelText: string
-  onRightButtonClick: () => void
+  onRightButtonClick: (ev: React.MouseEvent<HTMLButtonElement>) => void
 }
 
 export const InputSwitcher = ({

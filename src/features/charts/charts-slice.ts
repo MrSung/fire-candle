@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction, nanoid } from '@reduxjs/toolkit'
 
-const initialRandomId = nanoid()
+const initialRandomId: string = nanoid()
 
 export interface IChart {
   [id: string]: IChartValue[]
@@ -21,10 +21,10 @@ export const initialChartValue: IChartValue = {
   id: initialRandomId,
   playerName: '',
   nthDay: '1',
-  openRate: '0',
-  closeRate: '0',
-  lowPrice: '0',
-  highPrice: '0',
+  openRate: '',
+  closeRate: '',
+  lowPrice: '',
+  highPrice: '',
   isSelected: true
 }
 
@@ -43,9 +43,25 @@ export const chartsSlice = createSlice({
       ...state,
       [payload.newRandomId]: [{ ...initialChartValue, id: payload.newRandomId }]
     }),
-    deleteColumn: (state, { payload }: PayloadAction<{ id: string }>) => {
-      delete state[payload.id]
-    }
+    deleteColumn: (
+      state,
+      { payload }: PayloadAction<{ currentId: string }>
+    ) => {
+      delete state[payload.currentId]
+    },
+    setChart: (
+      state,
+      { payload }: PayloadAction<{ currentChart: IChartValue }>
+    ) => ({
+      ...state,
+      [payload.currentChart.id]: state[
+        payload.currentChart.id
+      ].map(chartValue =>
+        chartValue.nthDay === payload.currentChart.nthDay
+          ? { ...chartValue, ...payload.currentChart }
+          : chartValue
+      )
+    })
     // incrementNthDay: (
     //   state,
     //   { payload }: PayloadAction<{ id: string; nthDay: string }>

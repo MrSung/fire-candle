@@ -18,22 +18,22 @@ export const InputChartBlocks = () => {
   return (
     <Wrapper>
       {chartsValues.map(arr => {
-        const chartId = arr[0].id
+        const id = arr[0].id
         const selected = arr.find(a => a.isSelected)
         if (typeof selected === 'undefined') {
           return null
         }
         return (
-          <Container key={chartId}>
+          <Container key={id}>
             <InputBlockWrap>
               <InputBlock
-                chartId={chartId}
+                id={id}
                 playerName={selected.playerName}
-                nthDayValue={selected.nthDay}
-                openRateValue={selected.openRate}
-                closeRateValue={selected.closeRate}
-                lowPriceValue={selected.lowPrice}
-                highPriceValue={selected.highPrice}
+                nthDay={selected.nthDay}
+                openRate={selected.openRate}
+                closeRate={selected.closeRate}
+                lowPrice={selected.lowPrice}
+                highPrice={selected.highPrice}
               />
             </InputBlockWrap>
             <ChartBlockWrap>
@@ -41,7 +41,7 @@ export const InputChartBlocks = () => {
             </ChartBlockWrap>
             <DeleteBlockButton
               onClick={() => {
-                dispatch(deleteColumn({ id: chartId }))
+                dispatch(deleteColumn({ currentId: id }))
               }}
             />
           </Container>

@@ -45,17 +45,17 @@ export const chartsSlice = createSlice({
     }),
     deleteColumn: (state, { payload }: PayloadAction<{ id: string }>) => {
       delete state[payload.id]
-    },
-    incrementNthDay: (
-      state,
-      { payload }: PayloadAction<{ id: string; nthDay: string }>
-    ) => {
-      const added = String(Number(payload.nthDay) + 1)
-      state[payload.id].forEach(chartValue => {
-        chartValue.isSelected = false
-      })
-      state[payload.id].push({ ...initialChartValue, nthDay: added })
     }
+    // incrementNthDay: (
+    //   state,
+    //   { payload }: PayloadAction<{ id: string; nthDay: string }>
+    // ) => {
+    //   const added = String(Number(payload.nthDay) + 1)
+    //   state[payload.id].forEach(chartValue => {
+    //     chartValue.isSelected = false
+    //   })
+    //   state[payload.id].push({ ...initialChartValue, nthDay: added })
+    // }
     // editPlayerName: (
     //   state,
     //   { payload }: PayloadAction<{ id: string; playerName: string }>

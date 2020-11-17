@@ -1,7 +1,7 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+// import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
-import { chartsSlice } from '../../features/charts/charts-slice'
+// import { chartsSlice } from '../../features/charts/charts-slice'
 import { InputSet } from '../atoms/input-set'
 import { InputSwitcher } from '../atoms/input-switcher'
 
@@ -25,9 +25,6 @@ interface IInputBlockProps {
 }
 
 export const InputBlock = (props: IInputBlockProps) => {
-  const dispatch = useDispatch()
-  const { incrementNthDay } = chartsSlice.actions
-
   return (
     <Wrapper>
       <InputSet
@@ -49,12 +46,12 @@ export const InputBlock = (props: IInputBlockProps) => {
         placeholder=''
         labelText='何日目：'
         onRightButtonClick={() => {
-          dispatch(
-            incrementNthDay({
-              id: props.chartId,
-              nthDay: props.nthDayValue
-            })
-          )
+          // dispatch(
+          //   incrementNthDay({
+          //     id: props.chartId,
+          //     nthDay: props.nthDayValue
+          //   })
+          // )
         }}
       />
       <InputSet

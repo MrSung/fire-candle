@@ -10,13 +10,13 @@ import { Button } from '@material-ui/core'
 import { InputSet } from '../atoms/input-set'
 import { InputSwitcher } from '../atoms/input-switcher'
 
-enum inputId {
-  PLAYER_NAME = 'playerName',
-  NTH_DAY = 'nthDay',
-  OPEN_RATE = 'openRate',
-  CLOSE_RATE = 'closeRate',
-  LOW_PRICE = 'lowPrice',
-  HIGH_PRICE = 'highPrice'
+enum InputId {
+  PlayerName = 'playerName',
+  NthDay = 'nthDay',
+  OpenRate = 'openRate',
+  CloseRate = 'closeRate',
+  LowPrice = 'lowPrice',
+  HighPrice = 'highPrice'
 }
 
 interface IInputBlockProps {
@@ -74,66 +74,66 @@ export const InputBlock = (props: IInputBlockProps) => {
   return (
     <Wrapper>
       <InputSet
-        inputId={inputId.PLAYER_NAME}
+        inputId={InputId.PlayerName}
         type='text'
         value={localState.playerName}
         placeholder='デモ太郎'
         labelText='プレイヤー：'
         onChange={ev => {
-          localDispatch({ type: inputId.PLAYER_NAME, payload: ev.target.value })
+          localDispatch({ type: InputId.PlayerName, payload: ev.target.value })
         }}
       />
       <InputSwitcher
-        inputId={inputId.NTH_DAY}
+        inputId={InputId.NthDay}
         type='number'
         value={localState.nthDay}
         placeholder=''
         labelText='何日目：'
         onRightButtonClick={ev => {
           localDispatch({
-            type: inputId.NTH_DAY,
+            type: InputId.NthDay,
             payload: ev.currentTarget.value
           })
         }}
       />
       <InputSet
-        inputId={inputId.OPEN_RATE}
+        inputId={InputId.OpenRate}
         type='number'
         value={localState.openRate}
         placeholder=''
         labelText='始値：'
         onChange={ev => {
-          localDispatch({ type: inputId.OPEN_RATE, payload: ev.target.value })
+          localDispatch({ type: InputId.OpenRate, payload: ev.target.value })
         }}
       />
       <InputSet
-        inputId={inputId.CLOSE_RATE}
+        inputId={InputId.CloseRate}
         type='number'
         value={localState.closeRate}
         placeholder=''
         labelText='終値：'
         onChange={ev => {
-          localDispatch({ type: inputId.CLOSE_RATE, payload: ev.target.value })
+          localDispatch({ type: InputId.CloseRate, payload: ev.target.value })
         }}
       />
       <InputSet
-        inputId={inputId.LOW_PRICE}
+        inputId={InputId.LowPrice}
         type='number'
         value={localState.lowPrice}
         placeholder=''
         labelText='安値：'
         onChange={ev => {
-          localDispatch({ type: inputId.LOW_PRICE, payload: ev.target.value })
+          localDispatch({ type: InputId.LowPrice, payload: ev.target.value })
         }}
       />
       <InputSet
-        inputId={inputId.HIGH_PRICE}
+        inputId={InputId.HighPrice}
         type='number'
         value={localState.highPrice}
         placeholder=''
         labelText='高値：'
         onChange={ev => {
-          localDispatch({ type: inputId.HIGH_PRICE, payload: ev.target.value })
+          localDispatch({ type: InputId.HighPrice, payload: ev.target.value })
         }}
       />
       <ButtonContainer>

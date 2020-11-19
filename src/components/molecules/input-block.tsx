@@ -69,6 +69,8 @@ export const InputBlock = (props: IInputBlockProps) => {
   })
   const { setChart } = chartsSlice.actions
 
+  const containsEmptyStr = Object.values(localState).some(val => val === '')
+
   return (
     <Wrapper>
       <InputSet
@@ -139,8 +141,10 @@ export const InputBlock = (props: IInputBlockProps) => {
           variant='contained'
           color='primary'
           onClick={() => {
+            if (containsEmptyStr) return
             dispatch(setChart({ currentChart: localState }))
           }}
+          disabled={containsEmptyStr}
         >
           反映する
         </Button>

@@ -12,6 +12,7 @@ import { AddBlockButton } from '../atoms/add-block-button'
 export const InputChartBlocks = () => {
   const charts = useSelector((state: RootState) => state.charts)
   const chartsValues = Object.values(charts)
+
   const dispatch = useDispatch()
   const { addNewColumn, deleteColumn } = chartsSlice.actions
 

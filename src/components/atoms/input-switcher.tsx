@@ -10,7 +10,10 @@ interface IInputSwitcherProps {
   value: string
   placeholder: string
   labelText: string
+  onLeftButtonClick: (ev: React.MouseEvent<HTMLButtonElement>) => void
+  isLeftButtonDisabled: boolean
   onRightButtonClick: (ev: React.MouseEvent<HTMLButtonElement>) => void
+  isRightButtonDisabled: boolean
 }
 
 export const InputSwitcher = ({
@@ -19,7 +22,10 @@ export const InputSwitcher = ({
   value,
   placeholder,
   labelText,
-  onRightButtonClick
+  onLeftButtonClick,
+  isLeftButtonDisabled,
+  onRightButtonClick,
+  isRightButtonDisabled
 }: IInputSwitcherProps) => (
   <Wrapper>
     <InputLabel
@@ -29,7 +35,11 @@ export const InputSwitcher = ({
     >
       <LabelText>{labelText}</LabelText>
       <ButtonContainer>
-        <Button style={{ width: '36px', minWidth: '36px' }}>
+        <Button
+          onClick={onLeftButtonClick}
+          disabled={isLeftButtonDisabled}
+          style={{ width: '36px', minWidth: '36px' }}
+        >
           <ArrowLeftIcon />
         </Button>
         <Input
@@ -42,6 +52,7 @@ export const InputSwitcher = ({
         />
         <Button
           onClick={onRightButtonClick}
+          disabled={isRightButtonDisabled}
           style={{ width: '36px', minWidth: '36px' }}
         >
           <ArrowRightIcon />

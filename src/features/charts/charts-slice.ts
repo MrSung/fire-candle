@@ -61,77 +61,25 @@ export const chartsSlice = createSlice({
           ? { ...chartValue, ...payload.currentChart }
           : chartValue
       )
-    })
-    // incrementNthDay: (
-    //   state,
-    //   { payload }: PayloadAction<{ id: string; nthDay: string }>
-    // ) => {
-    //   const added = String(Number(payload.nthDay) + 1)
-    //   state[payload.id].forEach(chartValue => {
-    //     chartValue.isSelected = false
-    //   })
-    //   state[payload.id].push({ ...initialChartValue, nthDay: added })
-    // }
-    // editPlayerName: (
-    //   state,
-    //   { payload }: PayloadAction<{ id: string; playerName: string }>
-    // ) => {
-    //   const matchedItem = state.find(item => payload.id === item.id)
-    //   if (typeof matchedItem === 'undefined') {
-    //     return
-    //   }
-    //   matchedItem.playerName = payload.playerName
-    // },
-    // editNthDay: (
-    //   state,
-    //   { payload }: PayloadAction<{ id: string; nthDay: string }>
-    // ) => {
-    //   const matchedItem = state.find(item => payload.id === item.id)
-    //   if (typeof matchedItem === 'undefined') {
-    //     return
-    //   }
-    //   matchedItem.nthDay = payload.nthDay
-    // },
-    // editOpenRate: (
-    //   state,
-    //   { payload }: PayloadAction<{ id: string; openRate: string }>
-    // ) => {
-    //   const matchedItem = state.find(item => payload.id === item.id)
-    //   if (typeof matchedItem === 'undefined') {
-    //     return
-    //   }
-    //   matchedItem.openRate = payload.openRate
-    // },
-    // editCloseRate: (
-    //   state,
-    //   { payload }: PayloadAction<{ id: string; closeRate: string }>
-    // ) => {
-    //   const matchedItem = state.find(item => payload.id === item.id)
-    //   if (typeof matchedItem === 'undefined') {
-    //     return
-    //   }
-    //   matchedItem.closeRate = payload.closeRate
-    // },
-    // editLowPrice: (
-    //   state,
-    //   { payload }: PayloadAction<{ id: string; lowPrice: string }>
-    // ) => {
-    //   const matchedItem = state.find(item => payload.id === item.id)
-    //   if (typeof matchedItem === 'undefined') {
-    //     return
-    //   }
-    //   matchedItem.lowPrice = payload.lowPrice
-    // },
-    // editHighPrice: (
-    //   state,
-    //   { payload }: PayloadAction<{ id: string; highPrice: string }>
-    // ) => {
-    //   const matchedItem = state.find(item => payload.id === item.id)
-    //   if (typeof matchedItem === 'undefined') {
-    //     return
-    //   }
-    //   matchedItem.highPrice = payload.highPrice
-    // }
+    }),
+    incrementNthDay: (
+      state,
+      { payload }: PayloadAction<{ currentId: string }>
+    ) => {
+      const currentChart = state[payload.currentId].find(
+        chartValue => chartValue.isSelected
+      )
+      if (typeof currentChart === 'undefined') return
+      const currentNthDay = currentChart.nthDay
+      state[payload.currentId].forEach(chartValue => {
+        chartValue.isSelected = false
+      })
+      state[payload.currentId].push({
+        ...initialChartValue,
+        id: payload.currentId,
+        nthDay: String(Number(currentNthDay) + 1)
+      })
+    }
   }
 })
 

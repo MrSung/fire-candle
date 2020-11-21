@@ -1,6 +1,7 @@
 import React, { useReducer } from 'react'
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import styled from 'styled-components'
+import { RootState } from '../../app/reducer'
 import { chartsSlice } from '../../features/charts/charts-slice'
 import {
   IChartValue,
@@ -19,17 +20,7 @@ enum InputId {
   HighPrice = 'highPrice'
 }
 
-interface IInputBlockProps {
-  id: string
-  playerName: string
-  nthDay: string
-  openRate: string
-  closeRate: string
-  lowPrice: string
-  highPrice: string
-}
-
-type inputBlockType =
+type InputBlockType =
   | 'playerName'
   | 'nthDay'
   | 'openRate'
@@ -37,12 +28,12 @@ type inputBlockType =
   | 'lowPrice'
   | 'highPrice'
 
-type inputBlockReducerType = (
+type InputBlockReducerType = (
   state: IChartValue,
-  action: { type: inputBlockType; payload: string }
+  action: { type: InputBlockType; payload: string }
 ) => IChartValue
 
-const inputBlockReducer: inputBlockReducerType = (state, action) => {
+const inputBlockReducer: InputBlockReducerType = (state, action) => {
   switch (action.type) {
     case 'playerName':
       return { ...state, playerName: action.payload }
@@ -61,15 +52,34 @@ const inputBlockReducer: inputBlockReducerType = (state, action) => {
   }
 }
 
+interface IInputBlockProps {
+  id: string
+  playerName: string
+  nthDay: string
+  openRate: string
+  closeRate: string
+  lowPrice: string
+  highPrice: string
+}
+
 export const InputBlock = (props: IInputBlockProps) => {
+  const charts = useSelector((state: RootState) => state.charts)
+  const currentCharts = charts[props.id]
+  const currentChartsCount = currentCharts.length
+  const currentChart = currentCharts.find(chartValue => chartValue.isSelected)
+  const currentChartNotFilled =
+    typeof currentChart !== 'undefined'
+      ? Object.values(currentChart).some(val => val === '')
+      : false
+
   const dispatch = useDispatch()
+  const { setChart, incrementNthDay } = chartsSlice.actions
+
   const [localState, localDispatch] = useReducer(inputBlockReducer, {
     ...initialChartValue,
     ...props
   })
-  const { setChart } = chartsSlice.actions
-
-  const containsEmptyStr = Object.values(localState).some(val => val === '')
+  const localStateNotFilled = Object.values(localState).some(val => val === '')
 
   return (
     <Wrapper>
@@ -89,12 +99,40 @@ export const InputBlock = (props: IInputBlockProps) => {
         value={localState.nthDay}
         placeholder=''
         labelText='何日目：'
-        onRightButtonClick={ev => {
+        onLeftButtonClick={() => {
           localDispatch({
             type: InputId.NthDay,
-            payload: ev.currentTarget.value
+            payload: String(Number(localState.nthDay) - 1)
           })
         }}
+        isLeftButtonDisabled={Number(localState.nthDay) <= 1}
+        onRightButtonClick={() => {
+          localDispatch({
+            type: InputId.NthDay,
+            payload: String(Number(localState.nthDay) + 1)
+          })
+          localDispatch({
+            type: InputId.OpenRate,
+            payload: ''
+          })
+          localDispatch({
+            type: InputId.CloseRate,
+            payload: ''
+          })
+          localDispatch({
+            type: InputId.LowPrice,
+            payload: ''
+          })
+          localDispatch({
+            type: InputId.HighPrice,
+            payload: ''
+          })
+          dispatch(incrementNthDay({ currentId: props.id }))
+        }}
+        isRightButtonDisabled={
+          currentChartNotFilled ||
+          localState.nthDay === String(Number(currentChartsCount) + 1)
+        }
       />
       <InputSet
         inputId={InputId.OpenRate}
@@ -141,10 +179,9 @@ export const InputBlock = (props: IInputBlockProps) => {
           variant='contained'
           color='primary'
           onClick={() => {
-            if (containsEmptyStr) return
             dispatch(setChart({ currentChart: localState }))
           }}
-          disabled={containsEmptyStr}
+          disabled={localStateNotFilled}
         >
           反映する
         </Button>

@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react'
+import React, { useReducer, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import styled from 'styled-components'
 import { RootState } from '../../app/reducer'
@@ -81,24 +81,27 @@ export const InputBlock = (props: IInputBlockProps) => {
   })
   const localStateNotFilled = Object.values(localState).some(val => val === '')
 
-  const vacateFigures = () => {
+  useEffect(() => {
+    if (typeof currentChart === 'undefined') {
+      return
+    }
     localDispatch({
       type: InputId.OpenRate,
-      payload: ''
+      payload: currentChart.openRate
     })
     localDispatch({
       type: InputId.CloseRate,
-      payload: ''
+      payload: currentChart.closeRate
     })
     localDispatch({
       type: InputId.LowPrice,
-      payload: ''
+      payload: currentChart.lowPrice
     })
     localDispatch({
       type: InputId.HighPrice,
-      payload: ''
+      payload: currentChart.highPrice
     })
-  }
+  }, [localState.nthDay, currentChart])
 
   return (
     <Wrapper>
@@ -124,7 +127,6 @@ export const InputBlock = (props: IInputBlockProps) => {
             payload: String(Number(localState.nthDay) - 1)
           })
           dispatch(decrementNthDay({ currentId: props.id }))
-          vacateFigures()
         }}
         isLeftButtonDisabled={Number(localState.nthDay) <= 1}
         onRightButtonClick={() => {
@@ -133,7 +135,6 @@ export const InputBlock = (props: IInputBlockProps) => {
             payload: String(Number(localState.nthDay) + 1)
           })
           dispatch(incrementNthDay({ currentId: props.id }))
-          vacateFigures()
         }}
         isRightButtonDisabled={
           isCurrentChartNotFilled ||

@@ -36,10 +36,7 @@ export const InputSwitcher = ({
       <LabelText>{labelText}</LabelText>
       <ButtonContainer>
         <Button
-          onClick={ev => {
-            if (!isLeftButtonDisabled) return
-            onLeftButtonClick(ev)
-          }}
+          onClick={onLeftButtonClick}
           disabled={isLeftButtonDisabled}
           style={{ width: '36px', minWidth: '36px' }}
         >
@@ -54,10 +51,7 @@ export const InputSwitcher = ({
           style={{ width: '40px' }}
         />
         <Button
-          onClick={ev => {
-            if (!isRightButtonDisabled) return
-            onRightButtonClick(ev)
-          }}
+          onClick={onRightButtonClick}
           disabled={isRightButtonDisabled}
           style={{ width: '36px', minWidth: '36px' }}
         >

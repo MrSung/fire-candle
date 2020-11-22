@@ -62,7 +62,9 @@ export const InputSwitcher = ({
   </Wrapper>
 )
 
-const Wrapper = styled.div``
+const Wrapper = styled.div`
+  display: block;
+`
 
 const LabelText = styled.span`
   display: block;
@@ -70,5 +72,4 @@ const LabelText = styled.span`
 
 const ButtonContainer = styled.div`
   display: flex;
-  justify-content: space-between;
 `

@@ -18,26 +18,24 @@ export const InputSet = ({
   placeholder,
   labelText,
   onChange
-}: IInputSetProps) => {
-  return (
-    <Wrapper>
-      <InputLabel
-        style={{
-          width: '120px'
-        }}
-      >
-        <LabelText>{labelText}</LabelText>
-        <Input
-          id={inputId}
-          type={type}
-          value={value}
-          placeholder={placeholder}
-          onChange={onChange}
-        />
-      </InputLabel>
-    </Wrapper>
-  )
-}
+}: IInputSetProps) => (
+  <Wrapper>
+    <InputLabel
+      style={{
+        width: '120px'
+      }}
+    >
+      <LabelText>{labelText}</LabelText>
+      <Input
+        id={inputId}
+        type={type}
+        value={value}
+        placeholder={placeholder}
+        onChange={onChange}
+      />
+    </InputLabel>
+  </Wrapper>
+)
 
 const Wrapper = styled.div`
   &:nth-of-type(n + 3) {

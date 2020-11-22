@@ -6,14 +6,12 @@ interface IAddBlockButton {
   onClick: (event: React.MouseEvent<HTMLButtonElement>) => void
 }
 
-export const AddBlockButton = ({ onClick }: IAddBlockButton) => {
-  return (
-    <Wrapper type='button' onClick={onClick}>
-      <AddCircle color='primary' style={{ fontSize: 40 }} />
-      <ButtonText>カラムを追加する</ButtonText>
-    </Wrapper>
-  )
-}
+export const AddBlockButton = ({ onClick }: IAddBlockButton) => (
+  <Wrapper type='button' onClick={onClick}>
+    <AddCircle color='primary' style={{ fontSize: 40 }} />
+    <ButtonText>カラムを追加する</ButtonText>
+  </Wrapper>
+)
 
 const Wrapper = styled.button`
   display: flex;

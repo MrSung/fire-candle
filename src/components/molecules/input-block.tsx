@@ -189,6 +189,7 @@ export const InputBlock = (props: IInputBlockProps) => {
             dispatch(setChart({ currentChart: localState }))
           }}
           disabled={localStateNotFilled}
+          size='large'
         >
           反映する
         </Button>

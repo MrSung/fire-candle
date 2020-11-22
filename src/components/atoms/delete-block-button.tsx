@@ -6,14 +6,12 @@ interface IDeleteBlockButton {
   onClick: (event: React.MouseEvent<HTMLButtonElement>) => void
 }
 
-export const DeleteBlockButton = ({ onClick }: IDeleteBlockButton) => {
-  return (
-    <Wrapper type='button' onClick={onClick}>
-      <Cancel color='secondary' style={{ fontSize: 40 }} />
-      <ButtonText>カラムを削除する</ButtonText>
-    </Wrapper>
-  )
-}
+export const DeleteBlockButton = ({ onClick }: IDeleteBlockButton) => (
+  <Wrapper type='button' onClick={onClick}>
+    <Cancel color='secondary' style={{ fontSize: 40 }} />
+    <ButtonText>カラムを削除する</ButtonText>
+  </Wrapper>
+)
 
 const Wrapper = styled.button`
   display: flex;

@@ -21,10 +21,8 @@ export const InputChartBlocks = () => {
       {chartsValues.map(arr => {
         const id = arr[0].id
         const selected = arr.find(a => a.isSelected)
-        if (typeof selected === 'undefined') {
-          return null
-        }
-        return (
+
+        return typeof selected === 'undefined' ? null : (
           <Container key={id}>
             <InputBlockWrap>
               <InputBlock

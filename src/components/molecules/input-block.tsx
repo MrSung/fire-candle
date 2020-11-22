@@ -67,19 +67,38 @@ export const InputBlock = (props: IInputBlockProps) => {
   const currentCharts = charts[props.id]
   const currentChartsCount = currentCharts.length
   const currentChart = currentCharts.find(chartValue => chartValue.isSelected)
-  const currentChartNotFilled =
+  const isCurrentChartNotFilled =
     typeof currentChart !== 'undefined'
       ? Object.values(currentChart).some(val => val === '')
       : false
 
   const dispatch = useDispatch()
-  const { setChart, incrementNthDay } = chartsSlice.actions
+  const { setChart, decrementNthDay, incrementNthDay } = chartsSlice.actions
 
   const [localState, localDispatch] = useReducer(inputBlockReducer, {
     ...initialChartValue,
     ...props
   })
   const localStateNotFilled = Object.values(localState).some(val => val === '')
+
+  const vacateFigures = () => {
+    localDispatch({
+      type: InputId.OpenRate,
+      payload: ''
+    })
+    localDispatch({
+      type: InputId.CloseRate,
+      payload: ''
+    })
+    localDispatch({
+      type: InputId.LowPrice,
+      payload: ''
+    })
+    localDispatch({
+      type: InputId.HighPrice,
+      payload: ''
+    })
+  }
 
   return (
     <Wrapper>
@@ -104,6 +123,8 @@ export const InputBlock = (props: IInputBlockProps) => {
             type: InputId.NthDay,
             payload: String(Number(localState.nthDay) - 1)
           })
+          dispatch(decrementNthDay({ currentId: props.id }))
+          vacateFigures()
         }}
         isLeftButtonDisabled={Number(localState.nthDay) <= 1}
         onRightButtonClick={() => {
@@ -111,26 +132,11 @@ export const InputBlock = (props: IInputBlockProps) => {
             type: InputId.NthDay,
             payload: String(Number(localState.nthDay) + 1)
           })
-          localDispatch({
-            type: InputId.OpenRate,
-            payload: ''
-          })
-          localDispatch({
-            type: InputId.CloseRate,
-            payload: ''
-          })
-          localDispatch({
-            type: InputId.LowPrice,
-            payload: ''
-          })
-          localDispatch({
-            type: InputId.HighPrice,
-            payload: ''
-          })
           dispatch(incrementNthDay({ currentId: props.id }))
+          vacateFigures()
         }}
         isRightButtonDisabled={
-          currentChartNotFilled ||
+          isCurrentChartNotFilled ||
           localState.nthDay === String(Number(currentChartsCount) + 1)
         }
       />

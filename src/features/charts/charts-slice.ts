@@ -79,6 +79,19 @@ export const chartsSlice = createSlice({
         id: payload.currentId,
         nthDay: String(Number(currentNthDay) + 1)
       })
+    },
+    decrementNthDay: (
+      state,
+      { payload }: PayloadAction<{ currentId: string }>
+    ) => {
+      const currentChartIndex = state[payload.currentId].findIndex(
+        chartValue => chartValue.isSelected
+      )
+      if (currentChartIndex === -1) return
+      state[payload.currentId].forEach(chartValue => {
+        chartValue.isSelected = false
+      })
+      state[payload.currentId][currentChartIndex - 1].isSelected = true
     }
   }
 })

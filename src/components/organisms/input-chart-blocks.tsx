@@ -36,7 +36,7 @@ export const InputChartBlocks = () => {
               />
             </InputBlockWrap>
             <ChartBlockWrap>
-              <ChartBlock />
+              <ChartBlock id={id} />
             </ChartBlockWrap>
             <DeleteBlockButton
               onClick={() => {

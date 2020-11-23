@@ -1,31 +1,56 @@
-import React from 'react'
+import React, { useReducer, useEffect } from 'react'
+import { createSelector } from '@reduxjs/toolkit'
+import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import * as Highcharts from 'highcharts'
 import HighchartsMore from 'highcharts/highcharts-more'
 import HighchartsReact from 'highcharts-react-official'
+import { RootState } from '../../app/reducer'
 
 HighchartsMore(Highcharts)
 
-const options: Highcharts.Options = {
+const getXAxisCategories = (state: RootState, chartId: string) => {
+  return createSelector(
+    (state: RootState) => state.charts,
+    charts => charts[chartId].map(chartValue => chartValue.nthDay)
+  )(state)
+}
+
+const getSeriesData = (state: RootState, chartId: string) => {
+  return createSelector(
+    (state: RootState) => state.charts,
+    charts =>
+      charts[chartId].reduce<[number, number][]>((acc, chartValue) => {
+        const { lowPrice, highPrice } = chartValue
+        return [...acc, [Number(lowPrice), Number(highPrice)]]
+      }, [])
+  )(state)
+}
+
+const initialOptionsValue: Highcharts.Options = {
   title: {
     text: 'ローソク足チャート'
   },
+  xAxis: [],
+  yAxis: [],
+  series: []
+}
+
+interface IOptionReducerPayload {
+  xAxisCategories: string[]
+  seriesData: [number, number][]
+}
+
+type OptionsReducerType = (
+  state: Highcharts.Options,
+  action: { payload: IOptionReducerPayload }
+) => Highcharts.Options
+
+const optionsReducer: OptionsReducerType = (state, action) => ({
+  ...state,
   xAxis: [
     {
-      categories: [
-        '1',
-        '2',
-        '3',
-        '4',
-        '5',
-        '6',
-        '7',
-        '8',
-        '9',
-        '10',
-        '11',
-        '12'
-      ],
+      categories: action.payload.xAxisCategories,
       title: {
         text: '経過日数（日）'
       }
@@ -42,25 +67,29 @@ const options: Highcharts.Options = {
     {
       name: '安値・高値',
       type: 'errorbar',
-      data: [
-        [6, 8],
-        [5.9, 7.6],
-        [9.4, 10.4],
-        [14.1, 15.9],
-        [18.0, 20.1],
-        [21.0, 24.0],
-        [23.2, 25.3],
-        [26.1, 27.8],
-        [23.2, 23.9],
-        [18.0, 21.1],
-        [12.9, 14.0],
-        [7.6, 10.0]
-      ]
+      data: action.payload.seriesData
     }
   ]
+})
+
+interface IChartBlockProps extends HighchartsReact.Props {
+  id: string
 }
 
-export const ChartBlock = (props: HighchartsReact.Props) => {
+export const ChartBlock = (props: IChartBlockProps) => {
+  const selector = useSelector((state: RootState) => state)
+  const xAxisCategories = getXAxisCategories(selector, props.id)
+  const seriesData = getSeriesData(selector, props.id)
+
+  const [options, localDispatch] = useReducer(
+    optionsReducer,
+    initialOptionsValue
+  )
+
+  useEffect(() => {
+    localDispatch({ payload: { xAxisCategories, seriesData } })
+  }, [selector])
+
   return (
     <Wrapper>
       <HighchartsReact highcharts={Highcharts} options={options} {...props} />

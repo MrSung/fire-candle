@@ -88,6 +88,7 @@ export const ChartBlock = (props: IChartBlockProps) => {
 
   useEffect(() => {
     localDispatch({ payload: { xAxisCategories, seriesData } })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [charts])
 
   return (

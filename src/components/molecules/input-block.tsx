@@ -104,7 +104,7 @@ export const InputBlock = (props: IInputBlockProps) => {
   }, [localState.nthDay, currentChart])
 
   return (
-    <Wrapper>
+    <Wrapper autoComplete='off'>
       <InputSet
         inputId={InputId.PlayerName}
         type='text'
@@ -112,7 +112,10 @@ export const InputBlock = (props: IInputBlockProps) => {
         placeholder='デモ太郎'
         labelText='プレイヤー：'
         onChange={ev => {
-          localDispatch({ type: InputId.PlayerName, payload: ev.target.value })
+          localDispatch({
+            type: InputId.PlayerName,
+            payload: ev.target.value
+          })
         }}
       />
       <InputSwitcher
@@ -198,7 +201,7 @@ export const InputBlock = (props: IInputBlockProps) => {
   )
 }
 
-const Wrapper = styled.div`
+const Wrapper = styled.form`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;

@@ -59,7 +59,7 @@ export const chartsSlice = createSlice({
       ].map(chartValue =>
         chartValue.nthDay === payload.currentChart.nthDay
           ? { ...chartValue, ...payload.currentChart }
-          : chartValue
+          : { ...chartValue, playerName: payload.currentChart.playerName }
       )
     }),
     incrementNthDay: (

@@ -9,16 +9,16 @@ import { RootState } from '../../app/reducer'
 
 HighchartsMore(Highcharts)
 
-const getXAxisCategories = (state: RootState, chartId: string) => {
+const getXAxisCategories = (state: RootState['charts'], chartId: string) => {
   return createSelector(
-    (state: RootState) => state.charts,
+    (state: RootState['charts']) => state,
     charts => charts[chartId].map(chartValue => chartValue.nthDay)
   )(state)
 }
 
-const getSeriesData = (state: RootState, chartId: string) => {
+const getSeriesData = (state: RootState['charts'], chartId: string) => {
   return createSelector(
-    (state: RootState) => state.charts,
+    (state: RootState['charts']) => state,
     charts =>
       charts[chartId].reduce<[number, number][]>((acc, chartValue) => {
         const { lowPrice, highPrice } = chartValue
@@ -77,9 +77,9 @@ interface IChartBlockProps extends HighchartsReact.Props {
 }
 
 export const ChartBlock = (props: IChartBlockProps) => {
-  const selector = useSelector((state: RootState) => state)
-  const xAxisCategories = getXAxisCategories(selector, props.id)
-  const seriesData = getSeriesData(selector, props.id)
+  const charts = useSelector((state: RootState) => state.charts)
+  const xAxisCategories = getXAxisCategories(charts, props.id)
+  const seriesData = getSeriesData(charts, props.id)
 
   const [options, localDispatch] = useReducer(
     optionsReducer,
@@ -88,7 +88,7 @@ export const ChartBlock = (props: IChartBlockProps) => {
 
   useEffect(() => {
     localDispatch({ payload: { xAxisCategories, seriesData } })
-  }, [selector])
+  }, [charts])
 
   return (
     <Wrapper>

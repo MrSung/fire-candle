@@ -20,14 +20,36 @@ const getSeriesData = (state: RootState['charts'], chartId: string) => {
   return createSelector(
     (state: RootState['charts']) => state,
     charts =>
-      charts[chartId].reduce<[number, number][]>((acc, chartValue) => {
-        const { lowPrice, highPrice } = chartValue
-        return [...acc, [Number(lowPrice), Number(highPrice)]]
-      }, [])
+      charts[chartId].reduce<{
+        seriesFigures: [number, number, number, number][]
+        seriesType: 'positive' | 'negative' | ''
+      }>(
+        (acc, chartValue) => {
+          const { lowPrice, highPrice, openRate, closeRate } = chartValue
+          return {
+            ...acc,
+            seriesFigures: [
+              ...acc.seriesFigures,
+              [
+                Number(lowPrice),
+                Number(highPrice),
+                Number(openRate),
+                Number(closeRate)
+              ]
+            ],
+            seriesType:
+              Number(openRate) < Number(closeRate) ? 'positive' : 'negative'
+          }
+        },
+        { seriesFigures: [], seriesType: '' }
+      )
   )(state)
 }
 
 const initialOptionsValue: Highcharts.Options = {
+  chart: {
+    type: 'boxplot'
+  },
   title: {
     text: 'ローソク足チャート'
   },
@@ -38,7 +60,7 @@ const initialOptionsValue: Highcharts.Options = {
 
 interface IOptionReducerPayload {
   xAxisCategories: string[]
-  seriesData: [number, number][]
+  seriesFigures: [number, number, number, number][]
 }
 
 type OptionsReducerType = (
@@ -67,7 +89,7 @@ const optionsReducer: OptionsReducerType = (state, action) => ({
     {
       name: '安値・高値',
       type: 'errorbar',
-      data: action.payload.seriesData
+      data: action.payload.seriesFigures
     }
   ]
 })
@@ -79,7 +101,7 @@ interface IChartBlockProps extends HighchartsReact.Props {
 export const ChartBlock = (props: IChartBlockProps) => {
   const charts = useSelector((state: RootState) => state.charts)
   const xAxisCategories = getXAxisCategories(charts, props.id)
-  const seriesData = getSeriesData(charts, props.id)
+  const { seriesFigures } = getSeriesData(charts, props.id)
 
   const [options, localDispatch] = useReducer(
     optionsReducer,
@@ -87,9 +109,10 @@ export const ChartBlock = (props: IChartBlockProps) => {
   )
 
   useEffect(() => {
-    localDispatch({ payload: { xAxisCategories, seriesData } })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [charts])
+    localDispatch({
+      payload: { xAxisCategories, seriesFigures }
+    })
+  }, [charts]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Wrapper>

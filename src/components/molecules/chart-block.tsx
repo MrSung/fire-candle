@@ -25,7 +25,7 @@ enum SeriesType {
 interface ISeries {
   seriesLowHigh: [number, number][]
   seriesOpenClose: [number, number][]
-  seriesType: SeriesType.Positive | SeriesType.Negative | SeriesType.Identical
+  seriesType: SeriesType[]
 }
 
 const getSeriesData = (state: RootState['charts'], chartId: string) => {
@@ -45,18 +45,20 @@ const getSeriesData = (state: RootState['charts'], chartId: string) => {
               ...acc.seriesOpenClose,
               [Number(openRate), Number(closeRate)]
             ],
-            seriesType:
+            seriesType: [
+              ...acc.seriesType,
               Number(openRate) !== Number(closeRate)
                 ? Number(openRate) < Number(closeRate)
                   ? SeriesType.Positive
                   : SeriesType.Negative
                 : SeriesType.Identical
+            ]
           }
         },
         {
           seriesLowHigh: [],
           seriesOpenClose: [],
-          seriesType: SeriesType.Identical
+          seriesType: []
         }
       )
   )(state)
@@ -125,7 +127,9 @@ const optionsReducer: OptionsReducerType = (state, action) => ({
       name: '始値・終値',
       type: 'columnrange',
       data: action.payload.seriesOpenClose,
-      color: labelColorReducer(action.payload.seriesType)
+      columnrange: {
+        colors: action.payload.seriesType.map(type => labelColorReducer(type))
+      }
     }
   ]
 })

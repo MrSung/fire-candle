@@ -9,6 +9,12 @@ import { RootState } from '../../app/reducer'
 
 HighchartsMore(Highcharts)
 
+enum SeriesType {
+  Positive = 'positive',
+  Negative = 'negative',
+  Identical = 'identical'
+}
+
 const getXAxisCategories = (state: RootState['charts'], chartId: string) => {
   return createSelector(
     (state: RootState['charts']) => state,
@@ -22,7 +28,10 @@ const getSeriesData = (state: RootState['charts'], chartId: string) => {
     charts =>
       charts[chartId].reduce<{
         seriesFigures: [number, number, number, number][]
-        seriesType: 'positive' | 'negative' | ''
+        seriesType:
+          | SeriesType.Positive
+          | SeriesType.Negative
+          | SeriesType.Identical
       }>(
         (acc, chartValue) => {
           const { lowPrice, highPrice, openRate, closeRate } = chartValue
@@ -38,10 +47,12 @@ const getSeriesData = (state: RootState['charts'], chartId: string) => {
               ]
             ],
             seriesType:
-              Number(openRate) < Number(closeRate) ? 'positive' : 'negative'
+              Number(openRate) < Number(closeRate)
+                ? SeriesType.Positive
+                : SeriesType.Negative
           }
         },
-        { seriesFigures: [], seriesType: '' }
+        { seriesFigures: [], seriesType: SeriesType.Identical }
       )
   )(state)
 }

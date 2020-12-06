@@ -9,12 +9,6 @@ import { RootState } from '../../app/reducer'
 
 HighchartsMore(Highcharts)
 
-enum SeriesType {
-  Positive = 'positive',
-  Negative = 'negative',
-  Identical = 'identical'
-}
-
 const getXAxisCategories = (state: RootState['charts'], chartId: string) => {
   return createSelector(
     (state: RootState['charts']) => state,
@@ -22,29 +16,34 @@ const getXAxisCategories = (state: RootState['charts'], chartId: string) => {
   )(state)
 }
 
+enum SeriesType {
+  Positive = 'positive',
+  Negative = 'negative',
+  Identical = 'identical'
+}
+
+interface ISeries {
+  seriesLowHigh: [number, number][]
+  seriesOpenClose: [number, number][]
+  seriesType: SeriesType.Positive | SeriesType.Negative | SeriesType.Identical
+}
+
 const getSeriesData = (state: RootState['charts'], chartId: string) => {
   return createSelector(
     (state: RootState['charts']) => state,
     charts =>
-      charts[chartId].reduce<{
-        seriesFigures: [number, number, number, number][]
-        seriesType:
-          | SeriesType.Positive
-          | SeriesType.Negative
-          | SeriesType.Identical
-      }>(
+      charts[chartId].reduce<ISeries>(
         (acc, chartValue) => {
           const { lowPrice, highPrice, openRate, closeRate } = chartValue
           return {
             ...acc,
-            seriesFigures: [
-              ...acc.seriesFigures,
-              [
-                Number(lowPrice),
-                Number(highPrice),
-                Number(openRate),
-                Number(closeRate)
-              ]
+            seriesLowHigh: [
+              ...acc.seriesLowHigh,
+              [Number(lowPrice), Number(highPrice)]
+            ],
+            seriesOpenClose: [
+              ...acc.seriesOpenClose,
+              [Number(openRate), Number(closeRate)]
             ],
             seriesType:
               Number(openRate) < Number(closeRate)
@@ -52,26 +51,31 @@ const getSeriesData = (state: RootState['charts'], chartId: string) => {
                 : SeriesType.Negative
           }
         },
-        { seriesFigures: [], seriesType: SeriesType.Identical }
+        {
+          seriesLowHigh: [],
+          seriesOpenClose: [],
+          seriesType: SeriesType.Identical
+        }
       )
   )(state)
 }
 
 const initialOptionsValue: Highcharts.Options = {
-  chart: {
-    type: 'boxplot'
-  },
   title: {
     text: 'ローソク足チャート'
   },
   xAxis: [],
   yAxis: [],
+  legend: {
+    enabled: false
+  },
   series: []
 }
 
 interface IOptionReducerPayload {
   xAxisCategories: string[]
-  seriesFigures: [number, number, number, number][]
+  seriesLowHigh: [number, number][]
+  seriesOpenClose: [number, number][]
 }
 
 type OptionsReducerType = (
@@ -100,7 +104,12 @@ const optionsReducer: OptionsReducerType = (state, action) => ({
     {
       name: '安値・高値',
       type: 'errorbar',
-      data: action.payload.seriesFigures
+      data: action.payload.seriesLowHigh
+    },
+    {
+      name: '始値・終値',
+      type: 'columnrange',
+      data: action.payload.seriesOpenClose
     }
   ]
 })
@@ -112,7 +121,7 @@ interface IChartBlockProps extends HighchartsReact.Props {
 export const ChartBlock = (props: IChartBlockProps) => {
   const charts = useSelector((state: RootState) => state.charts)
   const xAxisCategories = getXAxisCategories(charts, props.id)
-  const { seriesFigures } = getSeriesData(charts, props.id)
+  const { seriesLowHigh, seriesOpenClose } = getSeriesData(charts, props.id)
 
   const [options, localDispatch] = useReducer(
     optionsReducer,
@@ -121,7 +130,7 @@ export const ChartBlock = (props: IChartBlockProps) => {
 
   useEffect(() => {
     localDispatch({
-      payload: { xAxisCategories, seriesFigures }
+      payload: { xAxisCategories, seriesLowHigh, seriesOpenClose }
     })
   }, [charts]) // eslint-disable-line react-hooks/exhaustive-deps
 

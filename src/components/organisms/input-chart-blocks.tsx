@@ -1,20 +1,13 @@
 import React from 'react'
-import { nanoid } from '@reduxjs/toolkit'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { RootState } from '../../app/reducer'
-import { chartsSlice } from '../../features/charts/charts-slice'
 import { InputBlock } from '../molecules/input-block'
 import { ChartBlock } from '../molecules/chart-block'
-import { DeleteBlockButton } from '../atoms/delete-block-button'
-import { AddBlockButton } from '../atoms/add-block-button'
 
 export const InputChartBlocks = () => {
   const charts = useSelector((state: RootState) => state.charts)
   const chartsValues = Object.values(charts)
-
-  const dispatch = useDispatch()
-  const { addNewColumn, deleteColumn } = chartsSlice.actions
 
   return (
     <Wrapper>
@@ -38,23 +31,9 @@ export const InputChartBlocks = () => {
             <ChartBlockWrap>
               <ChartBlock id={id} />
             </ChartBlockWrap>
-            <DeleteBlockButton
-              onClick={() => {
-                dispatch(deleteColumn({ currentId: id }))
-              }}
-            />
           </Container>
         )
       })}
-      <AddBlockButton
-        onClick={() => {
-          dispatch(
-            addNewColumn({
-              newRandomId: nanoid()
-            })
-          )
-        }}
-      />
     </Wrapper>
   )
 }

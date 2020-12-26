@@ -20,7 +20,6 @@ export const InputChartBlocks = () => {
             <InputBlockWrap>
               <InputBlock
                 id={id}
-                playerName={selected.playerName}
                 nthDay={selected.nthDay}
                 openRate={selected.openRate}
                 closeRate={selected.closeRate}

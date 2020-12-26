@@ -38,7 +38,7 @@ export const InputSet = ({
 )
 
 const Wrapper = styled.div`
-  &:nth-of-type(n + 3) {
+  &:nth-of-type(n + 2) {
     margin-top: 2rem;
   }
 `

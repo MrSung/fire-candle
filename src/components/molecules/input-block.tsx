@@ -12,7 +12,6 @@ import { InputSet } from '../atoms/input-set'
 import { InputSwitcher } from '../atoms/input-switcher'
 
 enum InputId {
-  PlayerName = 'playerName',
   NthDay = 'nthDay',
   OpenRate = 'openRate',
   CloseRate = 'closeRate',
@@ -21,12 +20,11 @@ enum InputId {
 }
 
 type InputBlockType =
-  | 'playerName'
-  | 'nthDay'
-  | 'openRate'
-  | 'closeRate'
-  | 'lowPrice'
-  | 'highPrice'
+  | InputId.NthDay
+  | InputId.OpenRate
+  | InputId.CloseRate
+  | InputId.LowPrice
+  | InputId.HighPrice
 
 type InputBlockReducerType = (
   state: IChartValue,
@@ -35,17 +33,15 @@ type InputBlockReducerType = (
 
 const inputBlockReducer: InputBlockReducerType = (state, action) => {
   switch (action.type) {
-    case 'playerName':
-      return { ...state, playerName: action.payload }
-    case 'nthDay':
+    case InputId.NthDay:
       return { ...state, nthDay: action.payload }
-    case 'openRate':
+    case InputId.OpenRate:
       return { ...state, openRate: action.payload }
-    case 'closeRate':
+    case InputId.CloseRate:
       return { ...state, closeRate: action.payload }
-    case 'lowPrice':
+    case InputId.LowPrice:
       return { ...state, lowPrice: action.payload }
-    case 'highPrice':
+    case InputId.HighPrice:
       return { ...state, highPrice: action.payload }
     default:
       return state
@@ -54,7 +50,6 @@ const inputBlockReducer: InputBlockReducerType = (state, action) => {
 
 interface IInputBlockProps {
   id: string
-  playerName: string
   nthDay: string
   openRate: string
   closeRate: string
@@ -105,19 +100,6 @@ export const InputBlock = (props: IInputBlockProps) => {
 
   return (
     <Wrapper autoComplete='off'>
-      <InputSet
-        inputId={InputId.PlayerName}
-        type='text'
-        value={localState.playerName}
-        placeholder='デモ太郎'
-        labelText='プレイヤー：'
-        onChange={ev => {
-          localDispatch({
-            type: InputId.PlayerName,
-            payload: ev.target.value
-          })
-        }}
-      />
       <InputSwitcher
         inputId={InputId.NthDay}
         type='number'

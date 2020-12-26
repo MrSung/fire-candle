@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { CSSProperties } from 'react'
 import styled from 'styled-components'
 import { Input, InputLabel, Button } from '@material-ui/core'
 import ArrowLeftIcon from '@material-ui/icons/ArrowLeft'
@@ -28,11 +28,7 @@ export const InputSwitcher = ({
   isRightButtonDisabled
 }: IInputSwitcherProps) => (
   <Wrapper>
-    <InputLabel
-      style={{
-        width: '120px'
-      }}
-    >
+    <InputLabel style={InputLabelStyle}>
       <LabelText>{labelText}</LabelText>
       <ButtonContainer>
         <Button
@@ -66,8 +62,13 @@ const Wrapper = styled.div`
   display: block;
 `
 
+const InputLabelStyle: CSSProperties = {
+  display: 'flex',
+  alignItems: 'center'
+}
+
 const LabelText = styled.span`
-  display: block;
+  display: inline-block;
 `
 
 const ButtonContainer = styled.div`

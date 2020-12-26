@@ -8,7 +8,6 @@ export interface IChart {
 
 export interface IChartValue {
   id: string
-  playerName: string
   nthDay: string
   openRate: string
   closeRate: string
@@ -19,7 +18,6 @@ export interface IChartValue {
 
 export const initialChartValue: IChartValue = {
   id: initialRandomId,
-  playerName: '',
   nthDay: '1',
   openRate: '',
   closeRate: '',
@@ -59,7 +57,7 @@ export const chartsSlice = createSlice({
       ].map(chartValue =>
         chartValue.nthDay === payload.currentChart.nthDay
           ? { ...chartValue, ...payload.currentChart }
-          : { ...chartValue, playerName: payload.currentChart.playerName }
+          : { ...chartValue }
       )
     }),
     incrementNthDay: (

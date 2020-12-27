@@ -1,17 +1,23 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Provider } from 'react-redux'
-import { store } from './app/store'
-import reportWebVitals from './reportWebVitals'
+import { Provider as ReduxProvider } from 'react-redux'
+
 import './index.css'
-import { App } from './app/app'
+import { Firebase, FirebaseContext } from './app/firebase'
+import { store } from './app/store'
+import { App } from './app'
+import reportWebVitals from './reportWebVitals'
+
+const { Provider: FirebaseCtxProvider } = FirebaseContext
 
 ReactDOM.render(
-  <Provider store={store}>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  </Provider>,
+  <FirebaseCtxProvider value={new Firebase()}>
+    <ReduxProvider store={store}>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </ReduxProvider>
+  </FirebaseCtxProvider>,
   document.getElementById('root')
 )
 

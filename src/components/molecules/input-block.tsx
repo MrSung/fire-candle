@@ -2,11 +2,11 @@ import React, { useReducer, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import styled from 'styled-components'
 import { RootState } from '../../app/reducer'
-import { chartsSlice } from '../../features/charts/charts-slice'
+import { chartsSlice } from '../../app/features/charts/charts-slice'
 import {
   IChartValue,
   initialChartValue
-} from '../../features/charts/charts-slice'
+} from '../../app/features/charts/charts-slice'
 import { Button } from '@material-ui/core'
 import { InputSet } from '../atoms/input-set'
 import { InputSwitcher } from '../atoms/input-switcher'

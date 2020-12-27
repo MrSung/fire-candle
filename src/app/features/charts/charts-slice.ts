@@ -2,10 +2,6 @@ import { createSlice, PayloadAction, nanoid } from '@reduxjs/toolkit'
 
 const initialRandomId: string = nanoid()
 
-export interface IChart {
-  [id: string]: IChartValue[]
-}
-
 export interface IChartValue {
   id: string
   nthDay: string
@@ -26,6 +22,10 @@ export const initialChartValue: IChartValue = {
   isSelected: true
 }
 
+export interface IChart {
+  [id: string]: IChartValue[]
+}
+
 export const initialChartsState: IChart = {
   [initialRandomId]: [initialChartValue]
 }
@@ -34,19 +34,6 @@ export const chartsSlice = createSlice({
   name: 'charts',
   initialState: initialChartsState,
   reducers: {
-    addNewColumn: (
-      state,
-      { payload }: PayloadAction<{ newRandomId: string }>
-    ) => ({
-      ...state,
-      [payload.newRandomId]: [{ ...initialChartValue, id: payload.newRandomId }]
-    }),
-    deleteColumn: (
-      state,
-      { payload }: PayloadAction<{ currentId: string }>
-    ) => {
-      delete state[payload.currentId]
-    },
     setChart: (
       state,
       { payload }: PayloadAction<{ currentChart: IChartValue }>
@@ -95,7 +82,9 @@ export const chartsSlice = createSlice({
       const currentChartIndex = state[payload.currentId].findIndex(
         chartValue => chartValue.isSelected
       )
-      if (currentChartIndex === -1) return
+      if (currentChartIndex === -1) {
+        return
+      }
       state[payload.currentId].forEach(chartValue => {
         chartValue.isSelected = false
       })

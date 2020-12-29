@@ -1,23 +1,38 @@
+import firebase from 'firebase/app'
+import 'firebase/database'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Provider as ReduxProvider } from 'react-redux'
+import { Provider } from 'react-redux'
+import { ReactReduxFirebaseProvider } from 'react-redux-firebase'
 
 import './index.css'
-import { Firebase, FirebaseContext } from './app/firebase'
 import { store } from './app/store'
 import { App } from './app'
 import reportWebVitals from './reportWebVitals'
 
-const { Provider: FirebaseCtxProvider } = FirebaseContext
+const fbConfig = {}
+
+const rrfConfig = {
+  // userProfile: 'users'
+}
+
+firebase.initializeApp(fbConfig)
+
+const rrfProps = {
+  firebase,
+  config: rrfConfig,
+  dispatch: store.dispatch
+}
 
 ReactDOM.render(
-  <FirebaseCtxProvider value={new Firebase()}>
-    <ReduxProvider store={store}>
+  <Provider store={store}>
+    <ReactReduxFirebaseProvider {...rrfProps}>
       <React.StrictMode>
         <App />
       </React.StrictMode>
-    </ReduxProvider>
-  </FirebaseCtxProvider>,
+    </ReactReduxFirebaseProvider>
+  </Provider>,
+
   document.getElementById('root')
 )
 

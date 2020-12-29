@@ -1,12 +1,12 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
-import { RootState } from '../../app/reducer'
+import { ISchema } from '../../app/reducer'
 import { InputBlock } from '../molecules/input-block'
 import { ChartBlock } from '../molecules/chart-block'
 
 export const InputChartBlocks = () => {
-  const charts = useSelector((state: RootState) => state.charts)
+  const charts = useSelector((state: ISchema) => state.charts)
   const chartsValues = Object.values(charts)
 
   return (

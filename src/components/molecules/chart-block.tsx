@@ -5,13 +5,13 @@ import styled from 'styled-components'
 import * as Highcharts from 'highcharts'
 import HighchartsMore from 'highcharts/highcharts-more'
 import HighchartsReact from 'highcharts-react-official'
-import { RootState } from '../../app/reducer'
+import { ISchema } from '../../app/reducer'
 
 HighchartsMore(Highcharts)
 
-const getXAxisCategories = (state: RootState['charts'], chartId: string) => {
+const getXAxisCategories = (state: ISchema['charts'], chartId: string) => {
   return createSelector(
-    (state: RootState['charts']) => state,
+    (state: ISchema['charts']) => state,
     charts => charts[chartId].map(chartValue => chartValue.nthDay)
   )(state)
 }
@@ -28,9 +28,9 @@ interface ISeries {
   seriesType: SeriesType[]
 }
 
-const getSeriesData = (state: RootState['charts'], chartId: string) => {
+const getSeriesData = (state: ISchema['charts'], chartId: string) => {
   return createSelector(
-    (state: RootState['charts']) => state,
+    (state: ISchema['charts']) => state,
     charts =>
       charts[chartId].reduce<ISeries>(
         (acc, chartValue) => {
@@ -139,7 +139,7 @@ interface IChartBlockProps extends HighchartsReact.Props {
 }
 
 export const ChartBlock = (props: IChartBlockProps) => {
-  const charts = useSelector((state: RootState) => state.charts)
+  const charts = useSelector((state: ISchema) => state.charts)
   const xAxisCategories = getXAxisCategories(charts, props.id)
   const { seriesLowHigh, seriesOpenClose, seriesType } = getSeriesData(
     charts,

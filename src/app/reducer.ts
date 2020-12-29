@@ -1,8 +1,16 @@
 import { combineReducers } from '@reduxjs/toolkit'
-import { chartsReducer } from './features/charts/charts-slice'
+import { firebaseReducer, FirebaseReducer } from 'react-redux-firebase'
 
-export const rootReducer = combineReducers({
-  charts: chartsReducer
+import { IChart } from './features/charts/charts-slice'
+
+export interface ISchema {
+  charts: IChart
+}
+
+export interface IRootState {
+  firebase: FirebaseReducer.Reducer<Record<string, never>, ISchema>
+}
+
+export const rootReducer = combineReducers<IRootState>({
+  firebase: firebaseReducer
 })
-
-export type RootState = ReturnType<typeof rootReducer>

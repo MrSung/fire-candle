@@ -1,7 +1,7 @@
 import React, { useReducer, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import styled from 'styled-components'
-import { RootState } from '../../app/reducer'
+import { ISchema } from '../../app/reducer'
 import { chartsSlice } from '../../app/features/charts/charts-slice'
 import {
   IChartValue,
@@ -58,7 +58,7 @@ interface IInputBlockProps {
 }
 
 export const InputBlock = (props: IInputBlockProps) => {
-  const charts = useSelector((state: RootState) => state.charts)
+  const charts = useSelector((state: ISchema) => state.charts)
   const currentCharts = charts[props.id]
   const currentChartsCount = currentCharts.length
   const currentChart = currentCharts.find(chartValue => chartValue.isSelected)

@@ -1,11 +1,15 @@
-import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
+import {
+  configureStore,
+  getDefaultMiddleware,
+  PreloadedState
+} from '@reduxjs/toolkit'
 import {
   getFirebase,
   actionTypes as rrfActionTypes
 } from 'react-redux-firebase'
 import logger from 'redux-logger'
 
-import { rootReducer } from './reducer'
+import { rootReducer, IRootState } from './reducer'
 
 const extraArgument = {
   getFirebase
@@ -29,8 +33,15 @@ const middleware = [
   logger
 ]
 
-export const store = configureStore({
-  reducer: rootReducer,
-  middleware,
-  devTools: process.env.NODE_ENV !== 'production'
-})
+const configureAppStore = (preloadedState?: PreloadedState<IRootState>) => {
+  const store = configureStore({
+    reducer: rootReducer,
+    middleware,
+    preloadedState,
+    devTools: process.env.NODE_ENV !== 'production'
+  })
+
+  return store
+}
+
+export const store = configureAppStore()

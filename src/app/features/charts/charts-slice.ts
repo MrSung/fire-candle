@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction, nanoid } from '@reduxjs/toolkit'
+import { nanoid, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 const initialRandomId: string = nanoid()
 
@@ -22,11 +22,11 @@ export const initialChartValue: IChartValue = {
   isSelected: true
 }
 
-export interface IChart {
+export interface ICharts {
   [id: string]: IChartValue[]
 }
 
-export const initialChartsState: IChart = {
+export const initialChartsState: ICharts = {
   [initialRandomId]: [initialChartValue]
 }
 

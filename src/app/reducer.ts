@@ -1,10 +1,10 @@
 import { combineReducers } from '@reduxjs/toolkit'
 import { firebaseReducer, FirebaseReducer } from 'react-redux-firebase'
 
-import { IChart } from './features/charts/charts-slice'
+import { ICharts } from './features/charts/charts-slice'
 
 export interface ISchema {
-  charts: IChart
+  charts: ICharts
 }
 
 export interface IRootState {

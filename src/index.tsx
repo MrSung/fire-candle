@@ -10,18 +10,21 @@ import { store } from './app/store'
 import { App } from './app'
 import reportWebVitals from './reportWebVitals'
 
-const fbConfig = {}
-
 const rrfConfig = {
   // userProfile: 'users'
 }
-
-firebase.initializeApp(fbConfig)
+const fbConfig = {}
 
 const rrfProps = {
   firebase,
   config: rrfConfig,
   dispatch: store.dispatch
+}
+
+try {
+  firebase.initializeApp(fbConfig)
+} catch (error) {
+  console.error(error)
 }
 
 ReactDOM.render(
@@ -32,7 +35,6 @@ ReactDOM.render(
       </React.StrictMode>
     </ReactReduxFirebaseProvider>
   </Provider>,
-
   document.getElementById('root')
 )
 

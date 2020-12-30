@@ -22,11 +22,11 @@ export const initialChartValue: IChartValue = {
   isSelected: true
 }
 
-export interface IChart {
+export interface ICharts {
   [id: string]: IChartValue[]
 }
 
-export const initialChartsState: IChart = {
+export const initialChartsState: ICharts = {
   [initialRandomId]: [initialChartValue]
 }
 
@@ -44,7 +44,7 @@ export const chartsSlice = createSlice({
       ].map(chartValue =>
         chartValue.nthDay === payload.currentChart.nthDay
           ? { ...chartValue, ...payload.currentChart }
-          : { ...chartValue }
+          : chartValue
       )
     }),
     incrementNthDay: (

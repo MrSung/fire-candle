@@ -1,5 +1,7 @@
-import 'firebase/database'
+// This import loads the firebase namespace along with all its type information.
 import app from 'firebase/app'
+// These imports load individual services into the firebase namespace.
+import 'firebase/database'
 
 export { FirebaseContext, useFirebase } from './context'
 

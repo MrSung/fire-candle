@@ -1,6 +1,6 @@
-import { createSlice, PayloadAction, nanoid } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-const initialRandomId: string = nanoid()
+const initialRandomId = ''
 
 export interface IChartValue {
   id: string

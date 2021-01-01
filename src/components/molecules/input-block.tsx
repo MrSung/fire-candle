@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import styled from 'styled-components'
 import { Button } from '@material-ui/core'
 
+import { useFirebase } from '../../app/firebase'
 import { RootState } from '../../app/reducer'
 import {
   chartsSlice,
@@ -49,16 +50,9 @@ const inputBlockReducer: InputBlockReducerType = (state, action) => {
   }
 }
 
-interface IInputBlockProps {
-  id: string
-  nthDay: string
-  openRate: string
-  closeRate: string
-  lowPrice: string
-  highPrice: string
-}
+type InputBlockProps = Omit<IChartValue, 'isSelected'>
 
-export const InputBlock = (props: IInputBlockProps) => {
+export const InputBlock = (props: InputBlockProps) => {
   const charts = useSelector((state: RootState) => state.charts)
   const currentCharts = charts[props.id]
   const currentChartsCount = currentCharts.length
@@ -68,8 +62,9 @@ export const InputBlock = (props: IInputBlockProps) => {
       ? Object.values(currentChart).some(val => val === '')
       : false
 
+  const firebase = useFirebase()
   const dispatch = useDispatch()
-  const { setChart, decrementNthDay, incrementNthDay } = chartsSlice.actions
+  const { decrementNthDay, incrementNthDay } = chartsSlice.actions
 
   const [localState, localDispatch] = useReducer(inputBlockReducer, {
     ...initialChartValue,
@@ -171,10 +166,14 @@ export const InputBlock = (props: IInputBlockProps) => {
         <Button
           variant='contained'
           color='primary'
-          onClick={() => {
-            dispatch(
-              setChart({ currentId: props.id, currentChart: localState })
+          onClick={async () => {
+            if (firebase === null) return
+
+            const currentChartValue = firebase.referDbByKeyName(
+              `charts/${localState.id}`
             )
+
+            await currentChartValue.set(localState)
           }}
           disabled={localStateNotFilled}
           size='large'

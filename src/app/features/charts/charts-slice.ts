@@ -1,7 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-const initialRandomId = ''
-
 export interface IChartValue {
   id: string
   nthDay: string
@@ -13,7 +11,7 @@ export interface IChartValue {
 }
 
 export const initialChartValue: IChartValue = {
-  id: initialRandomId,
+  id: '',
   nthDay: '1',
   openRate: '',
   closeRate: '',
@@ -26,9 +24,7 @@ export interface ICharts {
   [id: string]: IChartValue[]
 }
 
-export const initialChartsState: ICharts = {
-  [initialRandomId]: [initialChartValue]
-}
+export const initialChartsState: ICharts = {}
 
 export const chartsSlice = createSlice({
   name: 'charts',
@@ -36,7 +32,9 @@ export const chartsSlice = createSlice({
   reducers: {
     setChart: (
       state,
-      { payload }: PayloadAction<{ currentChart: IChartValue }>
+      {
+        payload
+      }: PayloadAction<{ currentId: string; currentChart: IChartValue }>
     ) => ({
       ...state,
       [payload.currentChart.id]: state[

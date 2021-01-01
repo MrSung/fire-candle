@@ -172,7 +172,9 @@ export const InputBlock = (props: IInputBlockProps) => {
           variant='contained'
           color='primary'
           onClick={() => {
-            dispatch(setChart({ currentChart: localState }))
+            dispatch(
+              setChart({ currentId: props.id, currentChart: localState })
+            )
           }}
           disabled={localStateNotFilled}
           size='large'

@@ -45,6 +45,15 @@ export const chartsSlice = createSlice({
           : chartValue
       )
     }),
+    setCharts: (
+      state,
+      {
+        payload
+      }: PayloadAction<{ currentId: string; currentCharts: IChartValue[] }>
+    ) => ({
+      ...state,
+      [payload.currentId]: payload.currentCharts
+    }),
     incrementNthDay: (
       state,
       { payload }: PayloadAction<{ currentId: string }>

@@ -1,13 +1,14 @@
 import React, { useReducer, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import styled from 'styled-components'
+import { Button } from '@material-ui/core'
+
 import { RootState } from '../../app/reducer'
-import { chartsSlice } from '../../app/features/charts/charts-slice'
 import {
+  chartsSlice,
   IChartValue,
   initialChartValue
 } from '../../app/features/charts/charts-slice'
-import { Button } from '@material-ui/core'
 import { InputSet } from '../atoms/input-set'
 import { InputSwitcher } from '../atoms/input-switcher'
 
